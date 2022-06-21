@@ -13,8 +13,9 @@ const useStyles = makeStyles({
     border:'none',
   },
   image: {
-    width: '150px',
-    height: '150px',
+    position: 'static !important',
+    margin: '-3rem 0 0 2rem',
+    border: '3px solid var(--mid)',
   },
 })
 
@@ -31,7 +32,7 @@ const UserHeader = ({ image, id }) => {
       </Stack>          
     </Stack>
     <Stack direction={{ xs: 'column', sm:'column', md:'row', lg:'row'  }}>
-      <Avatar className={classes.image} alt='Dummy-image' src={image}  />
+      <Avatar className={classes.image} alt='Dummy-image' src={image} sx={{ width: 150, height: 150 }} />
       <Stack direction='row' width='100%' alignItems='center' justifyContent='space-between'>
         <Stack direction='column' spacing={1}>
           <Typography variant='h4'>

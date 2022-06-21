@@ -1,3 +1,5 @@
+
+export { default as AddNewMenu } from './AddNewMenu'
 export { default as Accordion } from './Accordion'
 export { default as ApiDetails} from './ApiDetails'
 export { default as ApiMetrics} from './ApiMetrics'
