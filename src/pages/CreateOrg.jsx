@@ -40,12 +40,12 @@ const CreateOrg = () => {
   const createOrganization = async(event) => {    
     event.preventDefault()
     try{
-      if(!user.profileID){
-        alert('This user is not verified')
-      }else{
+      // if(!user.profileID){
+      //   alert('This user is not verified')
+      // }else{
         const data = await organizationUser(payload, user.profileID)
         console.log(data)
-      }
+      // }
       
     }catch (error){
      
