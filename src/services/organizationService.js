@@ -6,11 +6,11 @@ export const useOrganizationService = () => {
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
 
-    const organizationUser = async(payload, profileId) => {
+    const organizationUser = async(payload, profileID) => {
         setLoading(true)
         
         try {
-            const res = await fetch(`${base_url}/organisation/create/${profileId}`, {
+            const res = await fetch(`${base_url}/organisation/${profileID}/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
