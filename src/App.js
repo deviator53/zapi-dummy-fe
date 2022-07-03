@@ -30,7 +30,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    dispatch(getApis)
+    dispatch(getApis())
     getUserFromLS()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
@@ -49,7 +49,7 @@ const App = () => {
           {/* API Pages */}
           <Route path='/api/:id' element={<SingleApi />} />
           <Route path='/api/categories' element={<Categories />} />
-          <Route path='/api/categories/:category' element={<Category />} />
+          <Route path='/api/categories/:id' element={<Category />} />
 
           {/* User Pages */}
           <Route path='/user/:id' element={<UserProfile />} />

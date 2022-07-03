@@ -6,7 +6,7 @@ const ApiDetails = ({name, pricing, isVerified, author, lastUpdated, category, f
   
   return (
   <Stack direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} alignItems='center'>
-    <Avatar src={image} variant='square' sx={{width: 50, height: 50, margin: '0 1rem'}} />
+    <Avatar src={image} variant='square' sx={{width: 50, height: 50, margin: '0 1rem', objectFit: 'contain' }} />
     <Stack direction='column'>
      <Stack direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} spacing={2} alignItems='center'>
        <Typography variant='h5'>{name}</Typography>
@@ -19,9 +19,9 @@ const ApiDetails = ({name, pricing, isVerified, author, lastUpdated, category, f
      <Stack direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} alignItems='center' spacing={1}>
        <Typography variant='subtitle1'>By <Link> {author}</Link></Typography>
           <Divider orientation='vertical' flexItem></Divider>
-       <Typography variant='subtitle1'>Updated <Link>{lastUpdated}</Link> ago</Typography>
+       <Typography variant='subtitle1'>Updated {lastUpdated} ago</Typography>
           <Divider orientation='vertical' flexItem></Divider>
-       <Typography variant='subtitle1'> <Link>{category}</Link></Typography>
+       <Typography variant='subtitle1'><Link>{category}</Link></Typography>
           <Divider orientation='vertical' flexItem></Divider>
        <Typography variant='subtitle1'>Featured in <Link>{featured}</Link></Typography>
       </Stack>
