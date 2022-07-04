@@ -91,7 +91,9 @@ const LoginPage = () => {
 
       if(!data || data === undefined) return
 
-      navigate(`/user/${data[0].id}`)
+      console.log(data)
+
+      navigate(`/`)
     } catch (error) {
       console.log(error)
     }
