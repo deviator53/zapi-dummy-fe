@@ -83,16 +83,14 @@ const LoginPage = () => {
 
     try {
       const data = await loginUser(payload)
-      console.log(data)
-      dispatch(login(data[0]))
+      dispatch(login(data.data))
 
       if(rememberMe){
-        setWithExpiry('user', data[0], 3600000)
+        setWithExpiry('user', data.data, 3600000)
       }
 
       if(!data || data === undefined) return
 
-      console.log(data)
       navigate(`/`)
     } catch (error) {
       console.log(error)
