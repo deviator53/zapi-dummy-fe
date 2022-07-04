@@ -45,7 +45,7 @@ const MyApiPage = () => {
     const { loading, error, postApi } = useApiService()
     const navigate = useNavigate()
     //to fetch the categories
-    const { data } = useFetch('http://18.207.143.26:3000/api/categories')
+        const { data } = useFetch('http://18.207.143.26:3000/api/categories')
 
 
     const label = { inputProps: { 'aria-label': 'Switch privacy' } };
@@ -90,11 +90,9 @@ const MyApiPage = () => {
                     <FormControl>
                         <InputField fullWidth type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Your APIs Name' />
                     </FormControl>
-                    {/* <TextareaAutosize maxRows={4} aria-label="Short Description" placeholder="Describe your API" style={{ width: '100%', height: 50 }} /> */}
                     <InputLabel required>DESCRIPTION</InputLabel>
                     <FormControl fullWidth>
                         <InputField multiline rows={4} type='text' placeholder="Describe your API" value={description} onChange={(e) => setDescription(e.target.value)} />
-                        {/* <TextField multiline rows={4} type='text' value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe your API" /> */}
                     </FormControl>
                     <InputLabel required>WEBSITE</InputLabel>
                     <FormControl>
