@@ -83,6 +83,7 @@ const LoginPage = () => {
 
     try {
       const data = await loginUser(payload)
+      console.log(data)
       dispatch(login(data[0]))
 
       if(rememberMe){
@@ -91,7 +92,8 @@ const LoginPage = () => {
 
       if(!data || data === undefined) return
 
-      navigate(`/user/${data[0].id}`)
+      console.log(data)
+      navigate(`/`)
     } catch (error) {
       console.log(error)
     }
