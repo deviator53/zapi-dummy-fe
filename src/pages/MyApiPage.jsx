@@ -56,12 +56,11 @@ const MyApiPage = () => {
         const payload = { name, description, categoryId, base_url }
 
         try{
-            if(!user.id){
+            if(!user.userId){
                 alert('User is not Verified')
             } else {
-                const data = await postApi(payload, user.profileID)
-            console.log(data)
-            console.log(user)
+                const data = await postApi(payload)
+                console.log(data)
             }
             
         }catch(err) {}
