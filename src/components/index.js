@@ -1,7 +1,10 @@
+
+export { default as AddNewMenu } from './AddNewMenu'
 export { default as Accordion } from './Accordion'
 export { default as ApiDetails} from './ApiDetails'
 export { default as ApiMetrics} from './ApiMetrics'
 export { default as Carousel } from './Carousel'
+export { default as CategoryPreview } from './CategoryPreview'
 export { default as Endpoints } from './Endpoints'
 export { default as EndpointSnippets } from './EndpointSnippets'
 export { default as EndpointsParams } from './EndpointsParams'

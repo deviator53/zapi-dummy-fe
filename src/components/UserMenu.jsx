@@ -30,7 +30,7 @@ const UserMenu = () => {
                     <Avatar />
     </IconButton>
     <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <Paper sx={{ width: 320 }}>
+        <Paper sx={{ width: 300 }}>
             <MenuItem onClick={handleClose}>
                 <ListItemText>
                     <Typography variant='h6'>

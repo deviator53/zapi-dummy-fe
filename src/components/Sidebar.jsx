@@ -1,9 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-
-import { Categories } from '../dummy-categories'
 
 const useStyles = makeStyles({
   sidebar: {
@@ -33,6 +32,7 @@ const useStyles = makeStyles({
 
 const Sidebar = () => {
   const classes = useStyles()
+  const { apis } = useSelector(store => store.apis)
 
   return (
     <aside className={classes.sidebar}>
@@ -40,10 +40,10 @@ const Sidebar = () => {
         Categories
       </Typography>
       <List dense={true}>
-      {Categories.map(category => (
-        <ListItem className={classes.listItem} key={category}>
-          <Link to={`/api/categories/${category}`}>
-            <ListItemText primary={category} />
+      {apis.map(api => (
+        <ListItem className={classes.listItem} key={api.id}>
+          <Link to={`/api/categories/${api.id}`}>
+            <ListItemText primary={api.name} />
           </Link>
         </ListItem>
       ))}

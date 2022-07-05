@@ -2,10 +2,10 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Badge, Button, IconButton, Stack, Toolbar } from '@mui/material'
-import { AddCircleOutline, NotificationsOutlined, SearchOutlined } from '@mui/icons-material'
+import { NotificationsOutlined, SearchOutlined } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
 
-import { Modal, Search, UserMenu } from './index'
+import { AddNewMenu, Modal, Search, UserMenu } from './index'
 import { logout } from '../redux/features/user/userSlice'
 import { closeModal } from '../redux/features/modal/modalSlice'
 import { openSearchModal, closeSearchModal } from '../redux/features/search/searchSlice'
@@ -64,14 +64,11 @@ const Navbar = () => {
                     </Link>
 
                     <Stack direction='row' spacing={2} alignItems='center'>
-                        {isLoggedIn &&
-                            <Link to='/orgs/create-new'>
-                                Create Organization 
-                            </Link>
-                        }
                         <IconButton onClick={toggleSearch}>
                             <SearchOutlined />
                         </IconButton>
+
+                        {/* Icons to be shown when user is not logged in */}
                         {!isLoggedIn &&
                             <Link to='/login'>
                                 <Button variant='contained'>
@@ -82,13 +79,10 @@ const Navbar = () => {
                             <Button variant='outlined'>Sign Up</Button>
                         </Link>}
 
+                        {/* Icons to be shown when user is logged in. */}
                         {isLoggedIn &&
                             (<>
-                            <Link to='/orgs/create-new'>
-                                <IconButton>
-                                    <AddCircleOutline />
-                                </IconButton>
-                            </Link>
+                            <AddNewMenu />
                             <IconButton>
                                 <Badge badgeContent={1} color='primary'>
                                     <NotificationsOutlined />
