@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme =>createStyles({
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        height: '50px',
+        // height: '50px',
         color: 'var(--base)',
         borderColor: 'var(--base)',
       },
@@ -30,12 +30,15 @@ const useStyles = makeStyles(theme =>createStyles({
   }
 }))
 
-const InputField = ({ type, label, name, value, onChange, onFocus, placeholder, fullWidth, required, errorText, error }) => {
+const InputField = ({ type, label, name, value, onChange, onFocus, placeholder, fullWidth, required, errorText, multiline, rows, select, SelectProps, defaultValue, helperText }) => {
   const classes = useStyles()
 
   return (
     <div className={classes.formControl}>
-    <TextField fullWidth={fullWidth} required={required} type={type} label={label} name={name} value={value} onChange={onChange} onFocus={onFocus} placeholder={placeholder} size='small' classes={{ root: classes.root }} helperText={errorText} error={error} />
+    <TextField fullWidth={fullWidth} required={required} type={type} label={label} name={name} value={value} onChange={onChange} onFocus={onFocus} placeholder={placeholder} multiline={multiline} rows={rows} select={select} SelectProps={SelectProps} defaultValue={defaultValue} helperText={helperText} size='small' classes={{ root: classes.root }} />
+    {errorText && (<Typography variant='caption' color=''>
+      {errorText}
+    </Typography>)}
     </div>
   )
 }

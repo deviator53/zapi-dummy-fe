@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Avatar, Divider, IconButton, Menu, MenuItem, ListItemText, Paper, Typography } from '@mui/material'
 
@@ -9,6 +9,7 @@ const UserMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const dispatch = useDispatch()
+    const { user } = useSelector(store => store.user)
 
     const handleMenu = (e) => {
         setAnchorEl(e.currentTarget)
@@ -41,7 +42,7 @@ const UserMenu = () => {
                 </ListItemText>
             </MenuItem>
             <Divider orientation='horizontal' />
-            <Link to='/user/:id'>
+            <Link to={`/user/${user.userId}`}>
             <MenuItem onClick={handleClose}>
                 Profile
             </MenuItem>
@@ -51,7 +52,7 @@ const UserMenu = () => {
                 Settings
             </MenuItem>
             </Link>
-            <Link to='/'>
+            <Link to='/api/api/new'>
             <MenuItem onClick={handleClose}>
                 My APIs
             </MenuItem>

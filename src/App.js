@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux'
 import { ThemeProvider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
-import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings } from './pages'
+import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage } from './pages'
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'
 import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
+import ApiEndpoint from './pages/ApiEndpoint'
 
 const useStyles = makeStyles({
   router_container: {
@@ -50,6 +51,8 @@ const App = () => {
           <Route path='/api/:id' element={<SingleApi />} />
           <Route path='/api/categories' element={<Categories />} />
           <Route path='/api/categories/:id' element={<Category />} />
+          <Route path='/api/api/new' element={<MyApiPage />} />
+          <Route path='/api/endpoint/new' element={<ApiEndpoint />} />
 
           {/* User Pages */}
           <Route path='/user/:id' element={<UserProfile />} />
