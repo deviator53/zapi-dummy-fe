@@ -51,8 +51,8 @@ const App = () => {
           <Route path='/api/:id' element={<SingleApi />} />
           <Route path='/api/categories' element={<Categories />} />
           <Route path='/api/categories/:id' element={<Category />} />
-          <Route path='/api/api/new' element={<MyApiPage />} />
-          <Route path='/api/endpoint/new' element={<ApiEndpoint />} />
+          <Route path='/api/api/new/:id' element={<MyApiPage />} />
+          <Route path='/api/endpoint/new/:id' element={<ApiEndpoint />} />
 
           {/* User Pages */}
           <Route path='/user/:id' element={<UserProfile />} />
