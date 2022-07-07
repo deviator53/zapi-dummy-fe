@@ -21,15 +21,13 @@ const useStyles = makeStyles({
     },
 })
 
-const ApiPageSidebar = () => {
+const ApiPageSidebar = (props) => {
     const [query, setQuery] = useState('')
     const classes = useStyles()
     const { user } = useSelector(store => store.user)
 
     const handleSearch = async (e) => {
         e.preventDefault()
-
-       
     }
 
     return (
@@ -47,7 +45,7 @@ const ApiPageSidebar = () => {
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>
                             <CorporateFare />
-                            <Typography>Organization</Typography>
+                            <Typography><a href={props.org}>Organization</a></Typography>
                         </IconButton>
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
