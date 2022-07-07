@@ -44,6 +44,12 @@ const ApiPageSidebar = () => {
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>
+                            <AddCircleOutlined />
+                        </IconButton>
+                        <Typography>Organization</Typography>
+                    </Stack>
+                    <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
+                        <IconButton>
                             <PaymentSharp />
                         </IconButton>
                         <Typography>Payment Settings</Typography>
