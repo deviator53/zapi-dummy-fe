@@ -1,6 +1,6 @@
 import { Button, Divider, IconButton, Stack, Typography } from '@mui/material'
 import { AddCircleOutlined } from '@material-ui/icons';
-import { CheckCircleOutlineSharp, ExploreSharp, PaymentSharp, SearchSharp } from '@mui/icons-material';
+import { CheckCircleOutlineSharp, CorporateFare, ExploreSharp, PaymentSharp, SearchSharp } from '@mui/icons-material';
 import React, { useState } from 'react'
 import UserAvatar from './UserAvatar'
 import InputField from './InputField';
@@ -44,7 +44,7 @@ const ApiPageSidebar = () => {
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>
-                            <AddCircleOutlined />
+                            <CorporateFare />
                         </IconButton>
                         <Typography>Organization</Typography>
                     </Stack>
