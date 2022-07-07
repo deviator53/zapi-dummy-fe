@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Stack, Alert, Typography, Button, MenuItem, Select} from '@mui/material'
 import {makeStyles} from '@mui/styles'
 import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { InputField, LoadingSpinner } from '../components'
 import { useOrganizationService } from '../services/organizationService'
@@ -21,6 +22,7 @@ const useStyles = makeStyles({
 const CreateOrg = () => {
   // const [value, setValue] = useState(' ')
   const classes = useStyles()
+  const navigate = useNavigate()
   const { clearError, error, loading, organizationUser } = useOrganizationService()
 
   const [name, setname] = useState("")
@@ -45,6 +47,7 @@ const CreateOrg = () => {
       // }else{
         const data = await organizationUser(payload, user.profileId)
         console.log(data)
+        navigate(`/orgs/:Id`)
       // }
       
     }catch (error){
