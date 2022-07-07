@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Divider, MenuItem, Select, Stack, Button } from '@mui/material'
+import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { InputField } from '../components'
 
@@ -49,7 +49,6 @@ const classes = useStyles()
           </section>
         </div>
         <div>
-          <Typography className={classes.title} variant="h5">Manage Organizations</Typography>
           <section>
             <OrgTeammates />
           </section>
