@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     main: {
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
+        // alignItems: 'center',
     },
     icon: {
         display: 'flex',
@@ -36,9 +36,9 @@ const Endpoint = (props) => {
             <ApiPageSidebar />
             <Divider orientation='vertical' flexItem />
             <section className={classes.section_two}>
-                <Typography>Endpoints</Typography>
-                <Typography>Changes made to the endpoints will be reflected in the Hub.</Typography>
-                <Typography>Add and define your API endpoints.</Typography>
+                <Typography variant='h4'>Endpoints</Typography>
+                <Typography variant='subtitle'>Changes made to the endpoints will be reflected in the Hub.</Typography>
+                <Typography variant='body'>Add and define your API endpoints.</Typography>
 
                 <Stack direction='row' alignItems='center' className={classes.icon}>
                     <EndpointSearch />

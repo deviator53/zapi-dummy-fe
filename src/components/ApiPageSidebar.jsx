@@ -1,6 +1,6 @@
 import { Button, Divider, IconButton, Stack, Typography } from '@mui/material'
 import { AddCircleOutlined } from '@material-ui/icons';
-import { CheckCircleOutlineSharp, CorporateFare, ExploreSharp, PaymentSharp, SearchSharp } from '@mui/icons-material';
+import { CorporateFare, ExploreSharp, PaymentSharp, SearchSharp } from '@mui/icons-material';
 import React, { useState } from 'react'
 import UserAvatar from './UserAvatar'
 import InputField from './InputField';
