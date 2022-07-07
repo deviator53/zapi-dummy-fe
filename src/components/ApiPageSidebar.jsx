@@ -47,10 +47,6 @@ const ApiPageSidebar = (props) => {
                             <CorporateFare />
                             <Typography><a href={props.org}>Organization</a></Typography>
                         </IconButton>
-<<<<<<< HEAD
-=======
-                        <Typography><a href={props.org}>Organization</a></Typography>
->>>>>>> d3babc37c0ab7ceca2f5ec89c9907351d6f59636
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>
