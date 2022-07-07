@@ -6,6 +6,7 @@ import UserAvatar from './UserAvatar'
 import InputField from './InputField';
 import { makeStyles } from '@mui/styles';
 import MyApis from './MyApis';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
     options:{
@@ -23,6 +24,7 @@ const useStyles = makeStyles({
 const ApiPageSidebar = () => {
     const [query, setQuery] = useState('')
     const classes = useStyles()
+    const { user } = useSelector(store => store.user)
 
     const handleSearch = async (e) => {
         e.preventDefault()
@@ -37,28 +39,28 @@ const ApiPageSidebar = () => {
                 <Divider />
                 <Stack direction='column' my={2}>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
-                        <IconButton>
+                        <IconButton href={`/api/api/new/${user.profileId}`}>
                             <AddCircleOutlined />
+                            <Typography>Add New API</Typography>
                         </IconButton>
-                        <Typography>Add New API</Typography>
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>
                             <CorporateFare />
+                            <Typography>Organization</Typography>
                         </IconButton>
-                        <Typography>Organization</Typography>
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>
                             <PaymentSharp />
+                            <Typography>Payment Settings</Typography>
                         </IconButton>
-                        <Typography>Payment Settings</Typography>
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>
                             <ExploreSharp />
+                            <Typography>Support</Typography>
                         </IconButton>
-                        <Typography>Support</Typography>
                     </Stack>
                     <Stack direction='row' alignItems='center'>
                         <form onSubmit={handleSearch}>
