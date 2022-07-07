@@ -20,14 +20,12 @@ const useStyles = makeStyles({
     },
 })
 
-const ApiPageSidebar = () => {
+const ApiPageSidebar = (props) => {
     const [query, setQuery] = useState('')
     const classes = useStyles()
 
     const handleSearch = async (e) => {
         e.preventDefault()
-
-       
     }
 
     return (
@@ -46,7 +44,7 @@ const ApiPageSidebar = () => {
                         <IconButton>
                             <CorporateFare />
                         </IconButton>
-                        <Typography>Organization</Typography>
+                        <Typography><a href={props.org}>Organization</a></Typography>
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>
