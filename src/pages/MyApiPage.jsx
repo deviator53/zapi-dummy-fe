@@ -32,9 +32,13 @@ const useStyles = makeStyles({
         gap: '2rem',
     },
     section_two: {
+<<<<<<< HEAD
         height: '100%',
         width: '100%',
         background: 'var(--grey)',
+=======
+        marginLeft: '1rem',
+>>>>>>> d3babc37c0ab7ceca2f5ec89c9907351d6f59636
     },
     org: {
         marginTop: '5rem'
