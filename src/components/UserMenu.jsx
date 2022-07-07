@@ -52,7 +52,7 @@ const UserMenu = () => {
                 Settings
             </MenuItem>
             </Link>
-            <Link to='/api/api/new'>
+            <Link to={`/api/api/new/${user.profileId}`}>
             <MenuItem onClick={handleClose}>
                 My APIs
             </MenuItem>

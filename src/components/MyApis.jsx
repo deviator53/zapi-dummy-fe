@@ -19,7 +19,6 @@ const MyApis = () => {
                 <Typography>My APIs</Typography>
             </Stack>
 
-            
         </div>
     )
 }
