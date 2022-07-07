@@ -12,6 +12,7 @@ import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
+import OrganizationPage from './pages/OrganizationPage'
 
 const useStyles = makeStyles({
   router_container: {
@@ -65,7 +66,7 @@ const App = () => {
           <Route path='/user/settings' element={<Settings />} />
 
           {/* Organization Pages */}
-          <Route path='/orgs/:id' />
+          <Route path='/orgs/:Id'  element={<OrganizationPage />} />
           <Route path='/orgs/create-new' element={<CreateOrg />} />
         </Routes>
       </div>
