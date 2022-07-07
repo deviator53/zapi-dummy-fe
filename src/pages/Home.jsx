@@ -1,9 +1,10 @@
 import React from 'react'
-// import { useSelector } from 'react-redux'
-import { Stack, Typography } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { Alert, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import { Carousel, LoadingSpinner, Sidebar } from '../components'
+import { clearError } from '../redux/features/api/apiSlice'
 
 const useStyles = makeStyles({
   section: {
@@ -36,11 +37,18 @@ const useStyles = makeStyles({
 
 const Home = () => {
   const classes = useStyles()
-  // const { apis, isLoading } = useSelector(store => store.apis)
- 
-  // if(isLoading) return <LoadingSpinner />
+  const dispatch = useDispatch()
+  const { apis, isLoading, error } = useSelector(store => store.apis)
+  console.log(apis)
+
+  if(isLoading) return <LoadingSpinner />
 
   return (
+    <>
+    {error && (
+      <Alert style={{ position: 'absolute', top: '10%', zIndex:3 }} severity='error' onClose={() => dispatch(clearError)}>
+        {error}
+      </Alert>)}
     <main className={classes.main}>
       <div className={classes.sidebar}>
         <Sidebar />
@@ -62,6 +70,7 @@ const Home = () => {
         </div>
       </div>
     </main>
+    </>
   )
 }
 
