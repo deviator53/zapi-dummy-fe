@@ -1,16 +1,17 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 const base_url = process.env.REACT_APP_BASE_URL
 
-export const useApiService = () => {
-    const { user } = useSelector(store => store.user)
+export const useEndpointService = () => {
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
+    const { id } = useParams()
 
-    const postApi = async (payload) => {
+    const postEndpoint = async (payload) => {
+        setLoading(true)
         try {
-            const res = await fetch(`${base_url}/api/new/${user.profileId}`, {
+            const res = await fetch(`${base_url}/endpoints/new/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -24,8 +25,8 @@ export const useApiService = () => {
             setLoading(false)
             return data
         } catch (error) {
-            setError(error.message)
             setLoading(false)
+            setError(error.message)
         }
     }
 
@@ -33,5 +34,7 @@ export const useApiService = () => {
         setError(null)
     }
 
-    return { error, loading, postApi, clearError }
+    return { error, loading, postEndpoint, clearError }
 }
+ 
+export default useEndpointService;
