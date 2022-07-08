@@ -4,11 +4,11 @@ import { useState } from "react";
 import { InputField } from '../components'
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
-import useApiService from '../services/apiService';
+import { useApiService } from '../services/apiService';
 import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../services/useFetch';
 import ApiPageSidebar from '../components/ApiPageSidebar';
-import OrganizationList from '../components/OrganizationList';
+
 
 
 const useStyles = makeStyles({
@@ -25,7 +25,6 @@ const useStyles = makeStyles({
         display: 'grid',
         marginTop: '1rem',
         gap: '1rem',
-        marginLeft: '1rem',
     },
     button: {
         display: 'flex',
@@ -35,6 +34,7 @@ const useStyles = makeStyles({
         height: '100%',
         width: '100%',
         background: 'var(--grey)',
+        margin: '0 1rem'
     },
     org: {
         marginTop: '5rem'
@@ -82,7 +82,6 @@ const MyApiPage = () => {
         <div className={classes.main}>
             <section>
                 <ApiPageSidebar
-                    org="#org"
                 />
             </section>
             <Divider orientation='vertical' flexItem />
@@ -136,11 +135,6 @@ const MyApiPage = () => {
                 <Typography>Your API is private by default</Typography>
                 <Typography id='org'>Switching your API makes it accessing to everyone</Typography>
                 <FormControlLabel control={<Switch {...label} value={privacy} onClick={(e) => setPrivacy(e.target.value)} />} label="Private" />
-                {/* <section className={classes.org}>
-                    <OrganizationList
-                        
-                    />
-                </section> */}
             </section>
         </div>
     );

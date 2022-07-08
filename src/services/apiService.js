@@ -35,5 +35,3 @@ export const useApiService = () => {
 
     return { error, loading, postApi, clearError }
 }
- 
-export default useApiService;
