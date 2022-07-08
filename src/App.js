@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { ThemeProvider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
-import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage } from './pages'
+import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint } from './pages'
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'
@@ -12,6 +12,7 @@ import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import OrganizationPage from './pages/OrganizationPage'
+import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
 
 const useStyles = makeStyles({
   router_container: {
@@ -37,6 +38,10 @@ const App = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
+  useEffect(() => {
+    dispatch(getSingleApis())
+  })
+
   return (
     <ThemeProvider theme={theme}>
       <Navbar query={query} setQuery={setQuery} />
@@ -54,6 +59,7 @@ const App = () => {
           <Route path='/api/categories/:id' element={<Category />} />
           <Route path='/api/api/new/:id' element={<MyApiPage />} />
           <Route path='/api/endpoint/new/:id' element={<ApiEndpoint />} />
+          <Route path='/api/endpoints/:id' element={<Endpoint />} />
 
           {/* User Pages */}
           <Route path='/user/:id' element={<UserProfile />} />

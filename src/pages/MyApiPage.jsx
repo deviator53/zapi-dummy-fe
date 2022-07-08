@@ -25,13 +25,16 @@ const useStyles = makeStyles({
         display: 'grid',
         marginTop: '1rem',
         gap: '1rem',
+        marginLeft: '1rem',
     },
     button: {
         display: 'flex',
         gap: '2rem',
     },
     section_two: {
-        marginLeft: '1rem',
+        height: '100%',
+        width: '100%',
+        background: 'var(--grey)',
     },
     org: {
         marginTop: '5rem'
@@ -62,7 +65,7 @@ const MyApiPage = () => {
         try {
             const data = await postApi(payload)
             console.log(data)
-            navigate(`/api/endpoint/new/${data.data.id}`)
+            navigate(`/api/endpoints/${data.data.id}`)
         } catch (err) {}
 
         if (error) return
@@ -133,11 +136,11 @@ const MyApiPage = () => {
                 <Typography>Your API is private by default</Typography>
                 <Typography id='org'>Switching your API makes it accessing to everyone</Typography>
                 <FormControlLabel control={<Switch {...label} value={privacy} onClick={(e) => setPrivacy(e.target.value)} />} label="Private" />
-                <section className={classes.org}>
+                {/* <section className={classes.org}>
                     <OrganizationList
                         
                     />
-                </section>
+                </section> */}
             </section>
         </div>
     );
