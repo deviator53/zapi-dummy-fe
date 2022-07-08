@@ -8,6 +8,7 @@ import useApiService from '../services/apiService';
 import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../services/useFetch';
 import ApiPageSidebar from '../components/ApiPageSidebar';
+import OrganizationList from '../components/OrganizationList';
 
 
 const useStyles = makeStyles({
@@ -24,13 +25,19 @@ const useStyles = makeStyles({
         display: 'grid',
         marginTop: '1rem',
         gap: '1rem',
+        marginLeft: '1rem',
     },
     button: {
         display: 'flex',
         gap: '2rem',
     },
     section_two: {
-        marginLeft: '1rem',
+        height: '100%',
+        width: '100%',
+        background: 'var(--grey)',
+    },
+    org: {
+        marginTop: '5rem'
     }
 })
 
@@ -55,22 +62,16 @@ const MyApiPage = () => {
 
         const payload = { name, description, categoryId, base_url }
 
-        try{
-            if(!user.userId){
-                alert('User is not Verified')
-            } else {
-                const data = await postApi(payload)
-                console.log(data)
-            }
-            
-        }catch(err) {}
-        
-        if(error) return
-        navigate('/api/endpoint/new')
-        setName(''); setDescription(''); setCategoryId(''); setBase_Url('');
+        try {
+            const data = await postApi(payload)
+            console.log(data)
+            navigate(`/api/endpoints/${data.data.id}`)
+        } catch (err) {}
+
+        if (error) return
+
     }
 
-    // to clear the input field when the cancel button is clicked
     const handleCancel = (e) => {
         e.preventDefault()
 
@@ -80,7 +81,9 @@ const MyApiPage = () => {
     return (
         <div className={classes.main}>
             <section>
-                <ApiPageSidebar />
+                <ApiPageSidebar
+                    org="#org"
+                />
             </section>
             <Divider orientation='vertical' flexItem />
             <section className={classes.section_two}>
@@ -105,7 +108,7 @@ const MyApiPage = () => {
                                 {data.map((category) => (
                                     <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
                                 ))}
-                             </Select>
+                            </Select>
                         </FormControl>
                     </Box>
                 </form>
@@ -129,11 +132,15 @@ const MyApiPage = () => {
                     <Button type='submit' onClick={handleSubmit} disabled={!name || !description || !categoryId}>Add API</Button>
                     <Button onClick={handleCancel} disabled={!name || !description || !categoryId}>Cancel</Button>
                 </Stack>
-                
-                    <Typography>Your API is private by default</Typography>
-                    <Typography>Switching your API makes it accessing to everyone</Typography>
+
+                <Typography>Your API is private by default</Typography>
+                <Typography id='org'>Switching your API makes it accessing to everyone</Typography>
                 <FormControlLabel control={<Switch {...label} value={privacy} onClick={(e) => setPrivacy(e.target.value)} />} label="Private" />
-                
+                {/* <section className={classes.org}>
+                    <OrganizationList
+                        
+                    />
+                </section> */}
             </section>
         </div>
     );
