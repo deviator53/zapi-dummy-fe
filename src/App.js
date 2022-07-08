@@ -13,6 +13,7 @@ import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import OrganizationPage from './pages/OrganizationPage'
 import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
+import OrgList from './pages/OrgList'
 
 const useStyles = makeStyles({
   router_container: {
@@ -68,6 +69,7 @@ const App = () => {
           {/* Organization Pages */}
           <Route path='/orgs/:Id'  element={<OrganizationPage />} />
           <Route path='/orgs/create-new' element={<CreateOrg />} />
+          <Route path='/orgs-list' element={<OrgList />} />
         </Routes>
       </div>
     </ThemeProvider>
