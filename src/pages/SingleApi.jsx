@@ -56,7 +56,7 @@ const SingleApi = () => {
         <TabPanel value={tab} index={1}>Tutorial</TabPanel>
         <TabPanel value={tab} index={2}>
           <Stack direction='column'>
-            <Pricing />
+            <Pricing/>
           </Stack>
         </TabPanel>
       </Stack>
