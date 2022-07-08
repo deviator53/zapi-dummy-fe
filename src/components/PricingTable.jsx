@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,7 +12,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import { Button } from '@mui/material';
-import { useFetch } from '../services/useFetch';
+import { useSubscriptionService } from '../services/subscriptionService';
+
 
 const base_url = process.env.REACT_APP_BASE_URL
 
@@ -31,29 +33,25 @@ const rows = [
 export default function BasicTable() {
   const [buttonSwitch, setButtonSwitch] = useState(true);
   const { user } = useSelector(store => store.user)
-  const { data } = useFetch(`${base_url}/api`)
+  const { postSubscription } = useSubscriptionService()
+  const { id } = useParams()
   const profileId = user.profileId
+  const apiId = id
+  
    
 
 
-  data.map((api) => {console.log(api.id)})
-  const payload = { profileId }
   
-    const toggleButton = async () =>  { 
+    const toggleButton = async (e) =>  { 
+    e.preventDefault()
     setButtonSwitch(!buttonSwitch);
+    const payload = { profileId, apiId }
     try {
-      const res = await fetch(`${base_url}/subscription/subscribe`, {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-      })
-      const data = await res.json()
-      if(!res.ok) {
-          throw new Error(data.message)
-      }
-      return data
+      const data = await postSubscription(payload)
+      console.log(data);
+      console.log(profileId);
+      console.log(apiId);
+      
     } catch (error) {
         console.log(error.message);
     }

@@ -13,7 +13,6 @@ import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import OrganizationPage from './pages/OrganizationPage'
-import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
 
 const useStyles = makeStyles({
   router_container: {

@@ -3,18 +3,19 @@ import { useSelector } from 'react-redux'
 
 const base_url = process.env.REACT_APP_BASE_URL
 
-export const singleApi = () => {
+export const useSubscriptionService = () => {
     const { singleApis } = useSelector(store => store.singleApis)
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
 
-    const postApi = async () => {
+    const postSubscription = async (payload) => {
         try {
-            const res = await fetch(`${base_url}/api/${singleApis.id}`, {
-                method: 'GET',
+            const res = await fetch(`${base_url}/subscription/subscribe`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                body: JSON.stringify(payload)
             })
             const data = await res.json()
             if(!res.ok) {
@@ -32,7 +33,5 @@ export const singleApi = () => {
         setError(null)
     }
 
-    return { error, loading, postApi, clearError }
+    return { error, loading, postSubscription, clearError }
 }
- 
-export default singleApi;
