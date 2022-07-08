@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles'
 import {TabPanel} from '../components'
 import { UserHeader, UserTextbox } from '../components'
 
-const array = ['Weather API', 'Entertainmet API', 'Transport API', 'Finance API', 'Food API', 'Other API']
+const array = ['Weather API', 'Entertainment API', 'Transport API', 'Finance API', 'Food API', 'Other API']
 const arrayApis = array.length
 
 const useStyles = makeStyles({
@@ -29,28 +29,29 @@ const useStyles = makeStyles({
 const UserProfile = () => {
   const classes = useStyles()
   const [tab, setTab] = useState(0)
-  const { user } = useSelector(store => store.user)
+  const { profileId } = useSelector(store => store.profileId)
+  
 
   return (
     <Stack direction='column' px={1}>
-      <UserHeader image={user.image} id={user.id} />
-      <Stack direction='column' spiacing={2} my={4} >
+      <UserHeader image={profileId.image} id={profileId.id} />
+      <Stack direction='column' spacing={2} my={4} >
           <Typography variant='h6' style={{ fontSize: '1rem'}}>
             Name: 
             <span style={{ color: 'var(--base)', marginLeft: 10 }}>
-              {user.fullName ? user.fullName : 'Dummy Name'}
+              {profileId.fullName ? profileId.fullName : 'Dummy Name'}
             </span>
           </Typography>
           <Typography variant='h6' style={{ fontSize: '1rem'}}>
             username: 
             <span style={{ color: 'var(--base)', marginLeft: 10 }}>
-              {user.username ? user.username : '@username'}
+              {profileId.username ? profileId.username : '@username'}
             </span>
           </Typography>
           <Typography variant='h6' style={{ fontSize: '1rem'}}>
             Email: 
             <span style={{ color: 'var(--base)', marginLeft: 10 }}>
-              {user ? user.email : 'someone@example.com'}
+              {profileId ? profileId.email : 'someone@example.com'}
             </span>
           </Typography>
       </Stack>

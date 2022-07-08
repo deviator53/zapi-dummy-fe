@@ -22,6 +22,7 @@ export const useLoginService = () => {
                 throw new Error(data.message)
             }
             setLoading(false)
+            
             return data
         } catch (error) {
             setError(error.message)
