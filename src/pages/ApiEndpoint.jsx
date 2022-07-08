@@ -69,7 +69,9 @@ const handleCancel = (e) => {
 
   return (
     <div className={classes.main}>
+      <section>
       <ApiPageSidebar />
+      </section>
       <section className={classes.section_two}>
         <Typography variant='h4'>Add an Endpoint</Typography>
        <Stack>

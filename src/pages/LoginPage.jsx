@@ -68,9 +68,10 @@ const LoginPage = () => {
   const { clearError, error, loading, loginUser } = useLoginService()
 
   const getLocation = async() => {
-    const res = await fetch('https://geolocation-db.com/json/8dd79c70-0801-11ec-a29f-e381a788c2c0')
-    const data = await res.json()
-    setLocation(data)
+    const res = await fetch(
+      "https://geolocation-db.com/json/8dd79c70-0801-11ec-a29f-e381a788c2c0"
+    ).catch(() => {});
+    const data = res ? await res.json() : null;
   }
 
   const handleSubmit = async(e) => {
