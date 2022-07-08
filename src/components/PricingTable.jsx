@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 
 import { Button } from '@mui/material';
 import { useSubscriptionService } from '../services/subscriptionService';
+import { useUnSubscribeService } from '../services/unsubscribeService';
 
 
 const base_url = process.env.REACT_APP_BASE_URL
@@ -32,28 +33,103 @@ const rows = [
 
 export default function BasicTable() {
   const [buttonSwitch, setButtonSwitch] = useState(true);
+  const [buttonSwitchPro, setButtonSwitchPro] = useState(true);
+  const [buttonSwitchUltra, setButtonSwitchUltra] = useState(true);
+  const [buttonSwitchMega, setButtonSwitchMega] = useState(true);
   const { user } = useSelector(store => store.user)
   const { postSubscription } = useSubscriptionService()
+  const { postUnSubscribe } = useUnSubscribeService()
   const { id } = useParams()
   const profileId = user.profileId
   const apiId = id
-  
-   
 
+  const payload = { profileId, apiId }
 
-  
-    const toggleButton = async (e) =>  { 
+  const toggleButton = async (e) => {
     e.preventDefault()
     setButtonSwitch(!buttonSwitch);
-    const payload = { profileId, apiId }
     try {
       const data = await postSubscription(payload)
       console.log(data);
-      console.log(profileId);
-      console.log(apiId);
-      
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
+    }
+  }
+
+  const unsubButton = async(e) => {
+    e.preventDefault()
+    setButtonSwitch(!buttonSwitch)
+    try {
+      const data = await postUnSubscribe(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const toggleButtonPro = async (e) => {
+    e.preventDefault()
+    setButtonSwitchPro(!buttonSwitchPro)
+    try {
+      const data = await postSubscription(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const unsubButtonPro = async(e) => {
+    e.preventDefault()
+    setButtonSwitchPro(!buttonSwitchPro)
+    try {
+      const data = await postUnSubscribe(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const toggleButtonUltra = async (e) => {
+    e.preventDefault()
+    setButtonSwitchUltra(!buttonSwitchUltra)
+    try {
+      const data = await postSubscription(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const unsubButtonUltra = async(e) => {
+    e.preventDefault()
+    setButtonSwitchUltra(!buttonSwitchUltra)
+    try {
+      const data = await postUnSubscribe(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const toggleButtonMega = async (e) => {
+    e.preventDefault()
+    setButtonSwitchMega(!buttonSwitchMega)
+    try {
+      const data = await postSubscription(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const unsubButtonMega = async(e) => {
+    e.preventDefault()
+    setButtonSwitchMega(!buttonSwitchMega)
+    try {
+      const data = await postUnSubscribe(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
     }
   }
 
@@ -65,28 +141,40 @@ export default function BasicTable() {
           <TableRow>
             <TableCell>Objects</TableCell>
             <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
-              Basic <br/> $0.00 / mo <br/>
-                <Button variant='contained' onClick={toggleButton}>
-                  {buttonSwitch ? "Subscribe" : "Unsubscribe"}
-                </Button>
+              Basic <br /> $0.00 / mo <br />
+              {buttonSwitch && (<Button variant='contained' onClick={toggleButton}>
+                Subscribe
+              </Button>)}
+              {!buttonSwitch && (<Button variant='contained' onClick={unsubButton}>
+                Unsubscribe
+              </Button>)}
             </TableCell>
             <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
-              Pro <br/> $100.00 / mo <br/>
-                <Button disabled variant='contained' onClick={toggleButton}>
-                  Subscribe
-                </Button>
+              Pro <br /> $100.00 / mo <br />
+              {buttonSwitchPro && (<Button variant='contained' disabled onClick={toggleButtonPro}>
+                Subscribe
+              </Button>)}
+              {!buttonSwitchPro && (<Button variant='contained' disabled onClick={unsubButtonPro}>
+                UnSubscribe
+              </Button>)}
             </TableCell>
             <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
-              Ultra <br/> $200.00 / mo <br/>
-                <Button disabled variant='contained' onClick={toggleButton}>
-                  Subscribe
-                </Button>
+              Ultra <br /> $200.00 / mo <br />
+              {buttonSwitchUltra && (<Button variant='contained' disabled onClick={toggleButtonUltra}>
+                Subscribe
+              </Button>)}
+              {!buttonSwitchUltra && (<Button variant='contained' disabled onClick={unsubButtonUltra}>
+                UnSubscribe
+              </Button>)}
             </TableCell>
             <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
-              Mega <br/> $700.00 / mo  <br/>
-                <Button disabled variant='contained' onClick={toggleButton}>
-                  Subscribe
-                </Button>
+              Mega <br /> $700.00 / mo  <br />
+              {buttonSwitchMega && (<Button variant='contained' disabled onClick={toggleButtonMega}>
+                Subscribe
+              </Button>)}
+              {!buttonSwitchMega && (<Button variant='contained' disabled onClick={unsubButtonMega}>
+                UnSubscribe
+              </Button>)}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -113,7 +201,7 @@ export default function BasicTable() {
 
 
 
-// 
+//
 // Sample for Subscription endpoint
 //
 // const pricingSub = async () => {

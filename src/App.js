@@ -13,7 +13,6 @@ import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import OrganizationPage from './pages/OrganizationPage'
-import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
 import OrgList from './pages/OrgList'
 
 const useStyles = makeStyles({
