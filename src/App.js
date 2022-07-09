@@ -8,11 +8,11 @@ import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Ca
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'
+import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
 import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import OrganizationPage from './pages/OrganizationPage'
-import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
 import OrgList from './pages/OrgList'
 
 const useStyles = makeStyles({
@@ -32,6 +32,10 @@ const App = () => {
     if(!user) return null
     dispatch(login(user))
   }
+
+  useEffect(() =>{
+      dispatch(getSingleApis())
+    },[]) 
 
   useEffect(() => {
     dispatch(getApis())
