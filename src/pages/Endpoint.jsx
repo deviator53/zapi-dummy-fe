@@ -5,7 +5,7 @@ import EndpointSearch from '../components/EndpointSearch'
 import EndpointTable from '../components/EndpointTable'
 import { makeStyles } from '@mui/styles'
 import ApiPageSidebar from '../components/ApiPageSidebar'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const useStyles = makeStyles({
     main: {
@@ -45,10 +45,12 @@ const Endpoint = (props) => {
 
                     <Stack direction='row'>
                         <Stack alignItems='center'>
-                            <IconButton href={`/api/endpoint/new/${id}`}>
+                            <Link to={`/api/endpoint/new/${id}`}>
+                            <IconButton>
                                 <AddCircleOutlined />
                                 <Typography>Create REST Endpoint</Typography>
                             </IconButton>
+                            </Link>
                         </Stack>
                         <Stack alignItems='center'>
                             <IconButton>
