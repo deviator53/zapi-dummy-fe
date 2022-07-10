@@ -19,7 +19,6 @@ const OrgList = () => {
     <div className={classes.main}>
        <section>
                 <ApiPageSidebar
-                    org="#org"
                 />
             </section>
         <section className={classes.org}>

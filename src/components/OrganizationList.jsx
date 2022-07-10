@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,7 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
+import { useSelector } from 'react-redux';
 
+const base_url = process.env.REACT_APP_BASE_URL
 
 const useStyles = makeStyles({
     title: {
@@ -26,11 +28,12 @@ const useStyles = makeStyles({
 
     const classes = useStyles()
     const [orgList, setOrgList] = useState([])
+    const { id } = useParams()
     try{
         async function getOrganizations() {
-            const res = await fetch("http://18.207.143.26:3000/api/organisation")
+            const res = await fetch(`${base_url}/organisation/users-org/${id}`)
             const data = await res.json()
-            .then(data => setOrgList(data.data))
+            console.log(data)
         }
         useEffect(() => {
             getOrganizations()

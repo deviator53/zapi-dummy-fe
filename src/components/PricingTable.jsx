@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -36,10 +36,11 @@ export default function BasicTable() {
   const [buttonSwitchPro, setButtonSwitchPro] = useState(true);
   const [buttonSwitchUltra, setButtonSwitchUltra] = useState(true);
   const [buttonSwitchMega, setButtonSwitchMega] = useState(true);
-  const { user } = useSelector(store => store.user)
+  const { isLoggedIn, user } = useSelector(store => store.user)
   const { postSubscription } = useSubscriptionService()
   const { postUnSubscribe } = useUnSubscribeService()
   const { id } = useParams()
+  const navigate = useNavigate()
   const profileId = user.profileId
   const apiId = id
 
@@ -47,6 +48,9 @@ export default function BasicTable() {
 
   const toggleButton = async (e) => {
     e.preventDefault()
+    if (!isLoggedIn) {
+        navigate('/login')
+    } else {
     setButtonSwitch(!buttonSwitch);
     try {
       const data = await postSubscription(payload)
@@ -55,9 +59,13 @@ export default function BasicTable() {
       console.log(error.message);
     }
   }
+}
 
   const unsubButton = async(e) => {
     e.preventDefault()
+    if (!isLoggedIn) {
+      navigate('/login')
+  } else {
     setButtonSwitch(!buttonSwitch)
     try {
       const data = await postUnSubscribe(payload)
@@ -66,9 +74,13 @@ export default function BasicTable() {
       console.log(error.message);
     }
   }
+}
 
   const toggleButtonPro = async (e) => {
     e.preventDefault()
+    if (!isLoggedIn) {
+      navigate('/login')
+  } else {
     setButtonSwitchPro(!buttonSwitchPro)
     try {
       const data = await postSubscription(payload)
@@ -77,9 +89,13 @@ export default function BasicTable() {
       console.log(error.message);
     }
   }
+}
 
   const unsubButtonPro = async(e) => {
     e.preventDefault()
+    if (!isLoggedIn) {
+      navigate('/login')
+  } else {
     setButtonSwitchPro(!buttonSwitchPro)
     try {
       const data = await postUnSubscribe(payload)
@@ -88,9 +104,13 @@ export default function BasicTable() {
       console.log(error.message);
     }
   }
+}
 
   const toggleButtonUltra = async (e) => {
     e.preventDefault()
+    if (!isLoggedIn) {
+      navigate('/login')
+  } else {
     setButtonSwitchUltra(!buttonSwitchUltra)
     try {
       const data = await postSubscription(payload)
@@ -99,6 +119,7 @@ export default function BasicTable() {
       console.log(error.message);
     }
   }
+}
 
   const unsubButtonUltra = async(e) => {
     e.preventDefault()
