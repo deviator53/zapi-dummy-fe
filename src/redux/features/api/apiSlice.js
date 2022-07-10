@@ -33,7 +33,6 @@ const apiSlice = createSlice({
         [getApis.fulfilled]: (state, action) => {
             state.isLoading = false
             state.apis = action.payload
-            console.log(action.payload)
         },
         [getApis.rejected]: (state, action) => {
             state.isLoading = false
