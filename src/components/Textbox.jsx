@@ -23,10 +23,11 @@ const Textbox = ({ id, name, description, status, logo }) => {
   const classes = useStyles()
   const { singleApis } = useSelector(store => store.singleApis)
 
+
+
   return (
     <div className={classes.paperOuter}>
-      {singleApis.map((singleApi) => (
-        <Link key={singleApi.id} to={`/api/${singleApi.id}`}>
+        <Link key={id} to={`/api/${id}`}>
         <Paper elevation={3}>
           <div className={classes.paperInner}>
             <Stack direction='row' alignItems='center' justifyContent='space-between'>
@@ -74,7 +75,6 @@ const Textbox = ({ id, name, description, status, logo }) => {
           </div>
         </Paper>
       </Link>
-      ))} 
     </div>
   )
 }

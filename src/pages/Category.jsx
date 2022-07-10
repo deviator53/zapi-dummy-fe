@@ -5,6 +5,7 @@ import { Grid, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import { Textbox, Sidebar } from '../components'
+import { useFetch } from '../services/useFetch'
 
 const useStyles = makeStyles({
   section: {
@@ -37,14 +38,30 @@ const useStyles = makeStyles({
   }
 })
 
+const base_url = process.env.REACT_APP_BASE_URL
+
 const Category = () => {
   const categoryId = useParams().id
   const { apis } = useSelector(store => store.apis)
+  const { data } = useFetch(`${base_url}/api`)
   const classes = useStyles()
 
-  const apiCategory = apis.find(category => category.id === categoryId)
+  // const apiCategory = apis.find(category => category.id === categoryId)
 
-  if(!apiCategory.apis || apiCategory.apis.length === 0) {
+  const listData = (name, id) => {
+    return { name, id }
+}
+
+const lists = []
+data.map((api) => {
+    if (api.categoryId === categoryId) {
+        lists.push(listData(api.name, api.id))
+    }
+})
+
+console.log(lists)
+
+  if(!lists || lists.length === 0) {
     return (
       <Stack direction='row' className={classes.main}>
       <div className={classes.sidebar}>
@@ -52,7 +69,7 @@ const Category = () => {
       </div>
       <div className={classes.section}>
         <Typography variant='h4'>
-          Collection of the best {apiCategory.name} APIs.
+          Collection of the best {lists.name} APIs.
         </Typography>
         <div className={classes.message}>
           <Typography variant='h5'>
@@ -71,12 +88,12 @@ const Category = () => {
       </div>
       <div className={classes.section}>
         <Typography variant='h4'>
-          Collection of the best {apiCategory.name} APIs.
+          Collection of the best {lists.name} APIs.
         </Typography>
         <Grid container spacing={2} marginTop={2}>
-          {apiCategory.apis.amp((api) => (
+          {lists.map((api) => (
             <Grid key={api.id} item xs={12} sm={6} md={4} lg={4} xl={3}>
-              <Textbox {...api} />
+              <Textbox id={api.id} name={api.name} {...api} />
             </Grid>
           ))}
         </Grid>
