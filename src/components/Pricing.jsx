@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Pricing = () => {
+const Pricing = ({setOpenPopup}) => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -53,11 +53,9 @@ const Pricing = () => {
 
     useEffect(() => {
         dispatch(getPricing())
-        console.log(pricing);
     },[])
 
     if(isLoading) return <LoadingSpinner/>
-    console.log(pricing);
 
   return (
     <Stack direction='column' alignItems='center' justifyContent='center'>
@@ -74,7 +72,7 @@ const Pricing = () => {
         <Stack direction='row' width='20%' alignItems='center' justifyContent='space-between' className={classes.user}>
            <Stack direction='row' alignItems='center'>
                <Avatar sx={{ width: 35, height: 35, objectFit: 'contain' }}/>
-               <Stack direction='column'>
+               <Stack direction='column' px={4}>
                    <Typography variant='body1'>Personal Account</Typography>
                    <Typography variant='caption'>Dummy Name</Typography>
                </Stack>
@@ -96,7 +94,7 @@ const Pricing = () => {
         </Stack>
         {/* Pricing Table Section */}
         <Stack direction='column' width='80%' alignItems='center' justifyContent='space-between'>
-            <PricingTable />
+            <PricingTable setOpenPopup={setOpenPopup} />
         </Stack>
          {/* FAQ Section */}
         <Stack direction='column' width='70%' textAlign='center'>

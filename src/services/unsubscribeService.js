@@ -20,7 +20,7 @@ export const useUnSubscribeService = () => {
                 throw new Error(data.message)
             }
             setLoading(false)
-            console.log(data)
+            return data
         } catch (error) {
             setError(error.message)
             setLoading(false)

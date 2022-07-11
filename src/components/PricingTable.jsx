@@ -1,24 +1,14 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 import { Button } from '@mui/material';
 import { useSubscriptionService } from '../services/subscriptionService';
 import { useUnSubscribeService } from '../services/unsubscribeService';
+import { setSubscriptionData } from '../redux/features/subscription/subscriptionSlice';
 
-
-const base_url = process.env.REACT_APP_BASE_URL
-
-function createData(status, search, features, payperuse, freetouse) {
+const createData = (status, search, features, payperuse, freetouse) => {
   return { status, search, features, payperuse, freetouse };
 }
 
@@ -31,7 +21,7 @@ const rows = [
   createData('Rate Limit', '', '', '', '12000 requests per hour'),
 ];
 
-export default function BasicTable() {
+const BasicTable = ({setOpenPopup}) => {
   const [buttonSwitch, setButtonSwitch] = useState(true);
   const [buttonSwitchPro, setButtonSwitchPro] = useState(true);
   const [buttonSwitchUltra, setButtonSwitchUltra] = useState(true);
@@ -41,6 +31,7 @@ export default function BasicTable() {
   const { postUnSubscribe } = useUnSubscribeService()
   const { id } = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const profileId = user.profileId
   const apiId = id
 
@@ -54,7 +45,8 @@ export default function BasicTable() {
     setButtonSwitch(!buttonSwitch);
     try {
       const data = await postSubscription(payload)
-      console.log(data);
+      dispatch(setSubscriptionData(data))
+      setOpenPopup(true)
     } catch (error) {
       console.log(error.message);
     }
@@ -69,7 +61,8 @@ export default function BasicTable() {
     setButtonSwitch(!buttonSwitch)
     try {
       const data = await postUnSubscribe(payload)
-      console.log(data);
+      dispatch(setSubscriptionData(data))
+      setOpenPopup(true)
     } catch (error) {
       console.log(error.message);
     }
@@ -220,7 +213,7 @@ export default function BasicTable() {
   );
 }
 
-
+export default BasicTable;
 
 //
 // Sample for Subscription endpoint

@@ -39,7 +39,6 @@ const Home = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { apis, isLoading, error } = useSelector(store => store.apis)
-  console.log(apis)
 
   if(isLoading) return <LoadingSpinner />
 

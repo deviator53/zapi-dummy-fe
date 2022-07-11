@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
+import { useSelector } from 'react-redux'
 import { Tab, Tabs, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import logo from '../assets/LOGO (3).png'
-import { ApiMetrics, ApiDetails, Endpoints, EndpointSnippets, EndpointsParams, ResizeableDiv,TabPanel, Pricing } from '../components'
+import { ApiMetrics, ApiDetails, Endpoints, EndpointSnippets, EndpointsParams, PopUp, ResizeableDiv, TabPanel, Pricing } from '../components'
 
 const useStyles = makeStyles({
   div:{
@@ -21,8 +22,11 @@ const useStyles = makeStyles({
 const SingleApi = () => {
   const [tab, setTab]= useState(0);
   const classes = useStyles()
+  const [openPopup, setOpenPopup] = useState(false)
 
   return (
+    <>
+    {openPopup && <PopUp closePopUp={() => setOpenPopup(false)} />}
     <Stack direction='column'>
       <Stack direction={{xs: 'column', sm: 'column', md: 'row', lg:'row'}} my={2} spacing={2} justifyContent='space-between' alignItems='center' >
         <ApiDetails image={logo} name='Weather API' pricing='FREEMUIM' isVerified={false} author='zummit' lastUpdated='2days' category='Weather' featured='Popular APIs' />
@@ -56,11 +60,12 @@ const SingleApi = () => {
         <TabPanel value={tab} index={1}>Tutorial</TabPanel>
         <TabPanel value={tab} index={2}>
           <Stack direction='column'>
-            <Pricing/>
+            <Pricing setOpenPopup={setOpenPopup} />
           </Stack>
         </TabPanel>
       </Stack>
     </Stack>
+    </>
   )
 }
 
