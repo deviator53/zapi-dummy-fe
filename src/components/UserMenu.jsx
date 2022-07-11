@@ -34,10 +34,10 @@ const UserMenu = () => {
             <MenuItem onClick={handleClose}>
                 <ListItemText>
                     <Typography variant='h6'>
-                        Dummy User
+                    {user.fullName ? user.fullName : 'Dummy Name'}
                     </Typography>
                     <Typography variant='subtitlte2' color='textSecondary'>
-                        dummyemail@example.com
+                    {user ? user.email : 'someone@example.com'}
                     </Typography>
                 </ListItemText>
             </MenuItem>

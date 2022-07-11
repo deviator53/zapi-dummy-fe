@@ -6,8 +6,7 @@ import { useFetch } from '../services/useFetch';
 import {TabPanel} from '../components'
 import { UserHeader, UserTextbox } from '../components'
 
-// const array = ['Weather API', 'Entertainment API', 'Transport API', 'Finance API', 'Food API', 'Other API']
-// const arrayApis = array.length
+
 
 const base_url = process.env.REACT_APP_BASE_URL
 
@@ -33,20 +32,20 @@ const UserProfile = () => {
   const classes = useStyles()
   const { data } = useFetch(`${base_url}/api`)
   const { user } = useSelector(store => store.user)
-  console.log(user)
+  
 
-  const listData = (name, id) => {
-      return { name, id }
+  const listData = (name, id, description) => {
+      return { name, id, description }
   }
 
   const lists = []
   data.map((api) => {
       if (api.profileId === user.profileId) {
-          lists.push(listData(api.name, api.id))
+          lists.push(listData(api.name, api.id, api.description))
       }
   })
   const arrayApis = lists.length
-  console.log(lists)
+  
   
 
   return (

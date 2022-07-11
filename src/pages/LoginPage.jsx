@@ -86,7 +86,7 @@ const LoginPage = () => {
     try {
       const data = await loginUser(payload)
       dispatch(login(data.data))
-      console.log(data)
+     
 
       if(rememberMe){
         setWithExpiry('user', data.data, 3600000)
