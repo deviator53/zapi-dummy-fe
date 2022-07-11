@@ -33,9 +33,9 @@ const SingleApi = () => {
         <ApiMetrics popularity={9.9} latency={86} level={100}/>
       </Stack>
       <Tabs value={tab} onChange={(e, newValue)=>setTab(newValue)}>
+        <Tab label='Pricing'/>
         <Tab label='Endpoints'/>
         <Tab label='Tutorials' />
-        <Tab label='Pricing'/>
       </Tabs>
       <Stack direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} marginTop={2} spacing={2} alignItems='center'>
         <Typography variant='h5'>Weather Map Api Documentation</Typography>
@@ -45,6 +45,11 @@ const SingleApi = () => {
       </Stack>
       <Stack className={classes.tabs_container}>
         <TabPanel value={tab} index={0}>
+          <Stack direction='column'>
+            <Pricing setOpenPopup={setOpenPopup} />
+          </Stack>
+        </TabPanel>
+        <TabPanel value={tab} index={1}>
           <Stack direction='row'>
             <ResizeableDiv>
               <Endpoints />
@@ -57,12 +62,7 @@ const SingleApi = () => {
             </Stack>
           </Stack>
         </TabPanel>
-        <TabPanel value={tab} index={1}>Tutorial</TabPanel>
-        <TabPanel value={tab} index={2}>
-          <Stack direction='column'>
-            <Pricing setOpenPopup={setOpenPopup} />
-          </Stack>
-        </TabPanel>
+        <TabPanel value={tab} index={2}>Tutorial</TabPanel>
       </Stack>
     </Stack>
     </>

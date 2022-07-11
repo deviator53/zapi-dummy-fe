@@ -1,32 +1,39 @@
 import React, { useState, useEffect} from 'react'
 import { useSelector } from 'react-redux'
-import { Stack, Typography, Tabs, Tab, Grid } from '@mui/material'
-import { UserHeader, UserTextbox } from '../components'
+import { Stack, Typography, Grid } from '@mui/material'
+import { Textbox } from '../components'
 
+const url = process.env.REACT_APP_BASE_URL
 
-export default function SubscribedApiProfile() {
-    const { user } = useSelector(store => store.user)
-    const [data, setData] = useState([])
-    async function getSubscribedApi() {
-        const res = await fetch(`http://18.207.143.26:3000/api/subscription/${user.profileId}/all`)
-        const dataU = await res.json()
-        setData(dataU)
-    }
-    console.log(data)
-    useEffect(() => {
-        getSubscribedApi()
-    }, [])
-    const array = ['Weather API', 'Entertainmet API']
-    const arrayApis = array.length
+const SubscribedApiProfile = () => {
+  const { user } = useSelector(store => store.user)
+  const [data, setData] = useState([])
+
+  const getSubscribedApi = async() => {
+    const res = await fetch(`${url}/subscription/${user.profileId}/all`)
+    const data = await res.json()
+    setData(data.data)
+  }
+
+  useEffect(() => {
+      getSubscribedApi()
+  }, [])
+
   return (
-      <div>
-        <Grid container spacing={{ xs: 2, md: 3 }}>
-            {array ? array.map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={4} xl={3} style={{ padding:'2rem'}} key={index}>
-                <UserTextbox name={item} />
-              </Grid>
-            )) : <h2 >No Published APIs</h2>}
-        </Grid> 
-      </div>
+    <Grid container spacing={1}>
+      {data ? data.map((item, index) => (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+          <Textbox {...item[0]} />
+        </Grid>
+      )): (
+        <Stack alignItems='center' justifyContent='center'>
+          <Typography variant='h5'>
+            No subscribed APIs.
+          </Typography>
+        </Stack>
+      )}
+    </Grid> 
   )
 }
+
+export default SubscribedApiProfile
