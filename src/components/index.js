@@ -25,4 +25,5 @@ export { default as UserHeader } from './UserHeader'
 export { default as UserMenu } from './UserMenu'
 export { default as UserTextbox } from './UserTextbox'
 export { default as UserAvatar } from './UserAvatar'
+export { default as PostComponent } from './PostComponent'
 

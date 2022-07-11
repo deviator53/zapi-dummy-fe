@@ -6,8 +6,9 @@ import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 import { Textbox } from './index'
+import { useFetch } from '../services/useFetch'
 
-const array = ['Weather API', 'Entertainmet API', 'Transport API', 'Finance API', 'Food API', 'Other API']
+const base_url = process.env.REACT_APP_BASE_URL
 
 const useStyles = makeStyles({
   carousel_container: {
@@ -23,8 +24,20 @@ const useStyles = makeStyles({
   },
 })
 
+const arrayData = (name, id) => {
+  return { name, id }
+}
+
+const array = []
+
 const CarouselComponent = ({ header, description, category }) => {
   const classes = useStyles()
+  const { data } = useFetch(`${base_url}/api`)
+
+  data.map((api) => {
+    array.push(arrayData(api.name, api.id))
+  })
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -61,7 +74,7 @@ const CarouselComponent = ({ header, description, category }) => {
         <Stack className={classes.carousel_container}>
           <Carousel responsive={responsive} arrows={true} swipeable={true} draggable={true} showDots={true} infinite={true} autoPlay={false} keyBoardControl={true} transitionDuration={500} itemClass={classes.carousel}>
             {array.map(item => (
-              <Textbox key={item} name={item}/>
+              <Textbox key={item.id} name={item.name} id={item.id} />
             ))}
           </Carousel>
         </Stack>
