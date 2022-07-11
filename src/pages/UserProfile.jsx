@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles'
 
 import {TabPanel} from '../components'
 import { UserHeader, UserTextbox } from '../components'
+import SubscribedApiProfile from '../components/SubscribedApiProfile'
 
 const array = ['Weather API', 'Entertainmet API', 'Transport API', 'Finance API', 'Food API', 'Other API']
 const arrayApis = array.length
@@ -30,6 +31,14 @@ const UserProfile = () => {
   const classes = useStyles()
   const [tab, setTab] = useState(0)
   const { user } = useSelector(store => store.user)
+  const [userData, setUserData] = useState([])
+  try {
+    async function getUserData() {
+      const res = await fetch('http://18.207.143.26:3000/api/api/custom_find')
+    }
+  } catch {
+    
+  }
 
   return (
     <Stack direction='column' px={1}>
@@ -57,7 +66,7 @@ const UserProfile = () => {
       <Stack>
         <Tabs  className={classes.mainTab} value={tab} onChange={(e, newValue)=>setTab(newValue)}>
           <Tab  className={classes.tabs} label= {`Published APIs (${arrayApis})`}/>
-          <Tab className={classes.tabs} label='APIs Following(0)'/>
+          <Tab className={classes.tabs} label='Subscribed APIs'/>
           <Tab className={classes.tabs} label='Followed By(0)' />
           <Tab className={classes.tabs} label='Following(0)'/>
         </Tabs>
@@ -71,7 +80,7 @@ const UserProfile = () => {
             )) : <h2 >No Published APIs</h2>}
             </Grid> 
           </TabPanel>
-          <TabPanel value={tab} index={1}>Not APIs Following</TabPanel>
+          <TabPanel value={tab} index={1}><SubscribedApiProfile /></TabPanel>
           <TabPanel value={tab} index={2}>Not Followed Yet</TabPanel>
           <TabPanel value={tab} index={3}>Not Following Yet</TabPanel>
         </Stack>

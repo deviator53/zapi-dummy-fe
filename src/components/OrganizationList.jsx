@@ -33,7 +33,8 @@ const useStyles = makeStyles({
         async function getOrganizations() {
             const res = await fetch(`${base_url}/organisation/users-org/${id}`)
             const data = await res.json()
-            console.log(data)
+            setOrgList(data.data)
+            console.log(orgList)
         }
         useEffect(() => {
             getOrganizations()
