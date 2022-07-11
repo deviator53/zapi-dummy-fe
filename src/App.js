@@ -8,7 +8,7 @@ import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Ca
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'
-import { fetchUsers } from './redux/features/user/profileIdSlice'
+// import { fetchUsers } from './redux/features/user/profileIdSlice'
 import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
@@ -34,9 +34,9 @@ const App = () => {
     dispatch(login(user))
   }
 
-  useEffect(() => {
-    dispatch(fetchUsers())
-  },[])
+  // useEffect(() => {
+  //   dispatch(fetchUsers())
+  // },[])
 
   useEffect(() => {
     dispatch(getApis())
