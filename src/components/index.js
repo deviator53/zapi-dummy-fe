@@ -26,4 +26,5 @@ export { default as UserMenu } from './UserMenu'
 export { default as UserTextbox } from './UserTextbox'
 export { default as UserAvatar } from './UserAvatar'
 export { default as PostComponent } from './PostComponent'
+export { default as PopUp } from './PopUp'
 
