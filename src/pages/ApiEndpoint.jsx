@@ -2,8 +2,9 @@ import { Button, FormControl, InputLabel, MenuItem, Select, Stack, Typography } 
 import { makeStyles } from '@mui/styles'
 import { Box, Container } from '@mui/system'
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { InputField } from '../components'
+import { InputField, PostComponent } from '../components'
 import ApiPageSidebar from '../components/ApiPageSidebar'
 import useEndpointService from '../services/endpointService'
 
@@ -35,11 +36,18 @@ const ApiEndpoint = () => {
   const [method, setMethod] = useState('get')
   const [route, setRoute] = useState('/')
   const [headers, setHeaders] = useState([""])
-  const [requestBody, setRequestBody] = useState({})
+  const [requestBody, setRequestBody] = useState({ payload: '', description: '' })
+  const [showPostComponent, setShowPostComponent] = useState(false)
   const classes = useStyles()
   const { error, loading, postEndpoint } = useEndpointService()
   const navigate = useNavigate()
   const { id } = useParams()
+
+  useEffect(() => {
+    method === "post"
+      ? setShowPostComponent(true)
+      : setShowPostComponent(false)
+  }, [method])
 
 
   const handleSubmit = async (e) => {
@@ -90,12 +98,25 @@ const handleCancel = (e) => {
                 <FormControl fullWidth>
                   <Select size='small' value={method} onChange={(e) => setMethod(e.target.value)}>
                     <MenuItem value='get'>GET</MenuItem>
+                    <MenuItem value='post'>POST</MenuItem>
                   </Select>
                 </FormControl>
 
                 <InputField type='url' value={route} helperText='Use {curly braces} to indicate path parameters if needed e.g..,/employee/{id}' onChange={(e) => setRoute(e.target.value)} />
               </Stack>
           </Box>
+
+          {showPostComponent && (
+            <>
+            <InputLabel>Payload Name</InputLabel>
+            <FormControl>
+              <InputField fullWidth type='text' value={requestBody.payload} onChange={(e) => setRequestBody({ ...requestBody, payload: e.target.value })} placeholder='Payload Name' />
+            </FormControl>
+            <InputLabel>Payload Description</InputLabel>
+            <FormControl fullWidth>
+              <InputField multiline rows={4} type='text' placeholder="Describe your payload" value={requestBody.description} onChange={(e) => setRequestBody({ ...requestBody, description: e.target.value })} />
+            </FormControl></>
+          )}
         </form>
        </Stack>
 
