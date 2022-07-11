@@ -46,8 +46,8 @@ const useStyles = makeStyles({
     width: '90%',
     display: 'grid',
     placeItems: 'center',
-    gap: '2rem',
-    marginTop: '3rem',
+    gap: '1.5rem',
+    marginTop: '2rem',
     '@media screen and (max-width: 800px)': {
       width: '90%'
     },
@@ -72,6 +72,7 @@ const LoginPage = () => {
       "https://geolocation-db.com/json/8dd79c70-0801-11ec-a29f-e381a788c2c0"
     ).catch(() => {});
     const data = res ? await res.json() : null;
+    setLocation(data)
   }
 
   const handleSubmit = async(e) => {
@@ -133,7 +134,7 @@ const LoginPage = () => {
           Don't have an account?
           <Link to='/signup'> Sign up</Link>
         </Typography>
-        <Stack direction='column' width='50%' mt={5}>
+        <Stack direction='column' width='50%' mt={4}>
           <Divider variant='middle'>
             <Typography variant='body1'>or continue with</Typography>
           </Divider>

@@ -155,7 +155,7 @@ const Pricing = () => {
                     Starting with the Google Search API - you have access to an extensive ecosystem to accelerate your development process
             </Typography>
             <Stack alignItems='center'>
-                <Stack textAlign='center' justifyContent='space-between' direction="row" spacing={12} direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} mt={2}>
+                <Stack textAlign='center' justifyContent='space-between' spacing={12} direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} mt={2}>
                     <Stack alignItems='center'>
                         <img className={classes.img} src={developers} alt="developers" width="75px" height="60px" />
                         <Typography variant='h5' gutterBottom>
@@ -207,7 +207,7 @@ const Pricing = () => {
                 RapidAPI provides clear visibility on all of the API you use. Worry less about juggling multiple keys and subscription accounts.
             </Typography>
             <Stack alignItems='center'>
-                <Stack textAlign='center' justifyContent='space-between' direction="row" spacing={1} direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} mt={2}>
+                <Stack textAlign='center' justifyContent='space-between' spacing={1} direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} mt={2}>
                     <Stack alignItems='center'>
                         <LooksOneIcon sx={{ width: 65, height: 65, objectFit: 'contain', color: blue[500]}}/>
                         <Typography variant='h5' gutterBottom>

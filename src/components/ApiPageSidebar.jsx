@@ -7,6 +7,7 @@ import InputField from './InputField';
 import { makeStyles } from '@mui/styles';
 import MyApis from './MyApis';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     options:{
@@ -37,16 +38,20 @@ const ApiPageSidebar = (props) => {
                 <Divider />
                 <Stack direction='column' my={2}>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
-                        <IconButton href={`/api/api/new/${user.profileId}`}>
+                        <Link to={`/api/api/new/${user.profileId}`}>
+                        <IconButton>
                             <AddCircleOutlined />
                             <Typography>Add New API</Typography>
                         </IconButton>
+                        </Link>
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
+                        <Link to={`/orgs-list/${user.profileId}`}>
                         <IconButton>
                             <CorporateFare />
-                            <Typography><a href={props.org}>Organization</a></Typography>
+                            <Typography>Organization</Typography>
                         </IconButton>
+                        </Link>
                     </Stack>
                     <Stack direction='row' spacing={2} alignItems='center' className={classes.options}>
                         <IconButton>

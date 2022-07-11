@@ -25,44 +25,32 @@ const useStyles = makeStyles({
   })
 
 
-const UserTextbox = () => {
+const UserTextbox = ({name, id, description, logo}) => {
 
     const classes = useStyles()
-    // const { data } = useFetch(`${base_url}/api`)
-    const { user } = useSelector(store => store.user)
-    const { data } = useSelector(store => store.singleApiSlice)
+   
+    const { singleApis } = useSelector(store => store.singleApis)
     
     
-  const listData = (name, id, description,logo ) => {
-    return { name, id, description, logo }
-}
 
-    
-    const lists = []
-    data.map((api) => {
-        if (api.profileId === user.profileId) {
-            lists.push(listData(api.name, api.id, api.description, api.logo))
-        }
-    })
-    console.log(lists)
 
     return (
       <div className={classes.paperOuter}>
-        <Link to={`/api/${user.id}`}>
+        <Link to={`/api/${id}`}>
           <Paper elevation={3}>
             <div className={classes.paperInner}>
               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-              <Avatar src={lists.logo} sx={{ width: 32, height: 32, objectFit: 'contain' }} />
+              <Avatar src={logo} sx={{ width: 32, height: 32, objectFit: 'contain' }} />
               <BookmarkBorderOutlined />
               </Stack>
               <Stack direction='row' alignItems='center' justifyContent='space-between'>
               <Typography variant='h6' color='textPrimary' marginY={2}>
-                {lists.name ? lists.name : 'API Name'}
+                {name || 'API Name'}
               </Typography>
               <LockOutlinedIcon />
               </Stack>
               <Typography variant='subtitle1' color='textSecondary' gutterBottom>
-                {lists.description ? lists.description : 'API Description'}
+                {description || 'API Description'}
               </Typography>
             </div>
           </Paper>

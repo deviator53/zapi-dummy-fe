@@ -1,4 +1,8 @@
 import * as React from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,8 +11,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+import { Button } from '@mui/material';
+import { useSubscriptionService } from '../services/subscriptionService';
+import { useUnSubscribeService } from '../services/unsubscribeService';
+
+
+const base_url = process.env.REACT_APP_BASE_URL
+
+function createData(status, search, features, payperuse, freetouse) {
+  return { status, search, features, payperuse, freetouse };
 }
 
 const rows = [
@@ -21,16 +32,171 @@ const rows = [
 ];
 
 export default function BasicTable() {
+  const [buttonSwitch, setButtonSwitch] = useState(true);
+  const [buttonSwitchPro, setButtonSwitchPro] = useState(true);
+  const [buttonSwitchUltra, setButtonSwitchUltra] = useState(true);
+  const [buttonSwitchMega, setButtonSwitchMega] = useState(true);
+  const { isLoggedIn, user } = useSelector(store => store.user)
+  const { postSubscription } = useSubscriptionService()
+  const { postUnSubscribe } = useUnSubscribeService()
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const profileId = user.profileId
+  const apiId = id
+
+  const payload = { profileId, apiId }
+
+  const toggleButton = async (e) => {
+    e.preventDefault()
+    if (!isLoggedIn) {
+        navigate('/login')
+    } else {
+    setButtonSwitch(!buttonSwitch);
+    try {
+      const data = await postSubscription(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+  const unsubButton = async(e) => {
+    e.preventDefault()
+    if (!isLoggedIn) {
+      navigate('/login')
+  } else {
+    setButtonSwitch(!buttonSwitch)
+    try {
+      const data = await postUnSubscribe(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+  const toggleButtonPro = async (e) => {
+    e.preventDefault()
+    if (!isLoggedIn) {
+      navigate('/login')
+  } else {
+    setButtonSwitchPro(!buttonSwitchPro)
+    try {
+      const data = await postSubscription(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+  const unsubButtonPro = async(e) => {
+    e.preventDefault()
+    if (!isLoggedIn) {
+      navigate('/login')
+  } else {
+    setButtonSwitchPro(!buttonSwitchPro)
+    try {
+      const data = await postUnSubscribe(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+  const toggleButtonUltra = async (e) => {
+    e.preventDefault()
+    if (!isLoggedIn) {
+      navigate('/login')
+  } else {
+    setButtonSwitchUltra(!buttonSwitchUltra)
+    try {
+      const data = await postSubscription(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+  const unsubButtonUltra = async(e) => {
+    e.preventDefault()
+    setButtonSwitchUltra(!buttonSwitchUltra)
+    try {
+      const data = await postUnSubscribe(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const toggleButtonMega = async (e) => {
+    e.preventDefault()
+    setButtonSwitchMega(!buttonSwitchMega)
+    try {
+      const data = await postSubscription(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const unsubButtonMega = async(e) => {
+    e.preventDefault()
+    setButtonSwitchMega(!buttonSwitchMega)
+    try {
+      const data = await postUnSubscribe(payload)
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Objects</TableCell>
-            <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">Basic <br/> $0.00 / mo</TableCell>
-            <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">Pro <br/> $100.00 / mo</TableCell>
-            <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">Ultra <br/> $200.00 / mo</TableCell>
-            <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">Mega <br/> $700.00 / mo</TableCell>
+            <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
+              Basic <br /> $0.00 / mo <br />
+              {buttonSwitch && (<Button variant='contained' onClick={toggleButton}>
+                Subscribe
+              </Button>)}
+              {!buttonSwitch && (<Button variant='contained' onClick={unsubButton}>
+                Unsubscribe
+              </Button>)}
+            </TableCell>
+            <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
+              Pro <br /> $100.00 / mo <br />
+              {buttonSwitchPro && (<Button variant='contained' disabled onClick={toggleButtonPro}>
+                Subscribe
+              </Button>)}
+              {!buttonSwitchPro && (<Button variant='contained' disabled onClick={unsubButtonPro}>
+                UnSubscribe
+              </Button>)}
+            </TableCell>
+            <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
+              Ultra <br /> $200.00 / mo <br />
+              {buttonSwitchUltra && (<Button variant='contained' disabled onClick={toggleButtonUltra}>
+                Subscribe
+              </Button>)}
+              {!buttonSwitchUltra && (<Button variant='contained' disabled onClick={unsubButtonUltra}>
+                UnSubscribe
+              </Button>)}
+            </TableCell>
+            <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
+              Mega <br /> $700.00 / mo  <br />
+              {buttonSwitchMega && (<Button variant='contained' disabled onClick={toggleButtonMega}>
+                Subscribe
+              </Button>)}
+              {!buttonSwitchMega && (<Button variant='contained' disabled onClick={unsubButtonMega}>
+                UnSubscribe
+              </Button>)}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -40,12 +206,12 @@ export default function BasicTable() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.status}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.search}</TableCell>
+              <TableCell align="right">{row.features}</TableCell>
+              <TableCell align="right">{row.payperuse}</TableCell>
+              <TableCell align="right">{row.freetouse}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -53,3 +219,17 @@ export default function BasicTable() {
     </TableContainer>
   );
 }
+
+
+
+//
+// Sample for Subscription endpoint
+//
+// const pricingSub = async () => {
+//   const res = await axios.post('api/subsription/subscribe', { name: fields.name })
+//   console.log(res.data)
+// }
+
+// <div>
+//   <Button onClick={() => pricingSub()}>Subscribe</Button>
+// </div>

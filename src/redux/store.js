@@ -16,6 +16,6 @@ export const store = configureStore({
         apis: apiReducer,
         modal: modalReducer,
         search: searchReducer,
-        singleApis: singleApiReducer,
+        singleApis: singleApiReducer
     }
 })

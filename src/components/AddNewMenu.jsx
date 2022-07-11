@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IconButton, Menu, MenuItem, Paper } from '@mui/material'
 import { AddCircleOutline } from '@mui/icons-material'
+import { useSelector } from 'react-redux'
 
 const AddNewMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
+    const { user } = useSelector(store => store.user)
 
     const handleMenu = (e) => {
         setAnchorEl(e.currentTarget)
@@ -22,7 +24,7 @@ const AddNewMenu = () => {
     </IconButton>
     <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <Paper sx={{ width: 200 }}>
-            <Link to='/user/:id/new-api'>
+            <Link to={`/api/api/new/${user.profileId}`}>
                 <MenuItem onClick={handleClose}>
                     Add New API
                 </MenuItem>

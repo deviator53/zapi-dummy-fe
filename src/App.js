@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { ThemeProvider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
@@ -8,12 +8,11 @@ import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Ca
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'
-// import { fetchUsers } from './redux/features/user/profileIdSlice'
+import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
 import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import OrganizationPage from './pages/OrganizationPage'
-import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
 import OrgList from './pages/OrgList'
 
 const useStyles = makeStyles({
@@ -27,6 +26,7 @@ const App = () => {
   const [query, setQuery] = useState('')
   const classes = useStyles()
   const dispatch = useDispatch()
+  const { isLoggedIn, user } = useSelector(store => store.user)
 
   const getUserFromLS = () => {
     const user = getWithExpiry('user')
@@ -34,9 +34,9 @@ const App = () => {
     dispatch(login(user))
   }
 
-  // useEffect(() => {
-  //   dispatch(fetchUsers())
-  // },[])
+  useEffect(() =>{
+      dispatch(getSingleApis())
+    },[]) 
 
   useEffect(() => {
     dispatch(getApis())
@@ -63,18 +63,18 @@ const App = () => {
           <Route path='/api/:id' element={<SingleApi />} />
           <Route path='/api/categories' element={<Categories />} />
           <Route path='/api/categories/:id' element={<Category />} />
-          <Route path='/api/api/new/:id' element={<MyApiPage />} />
-          <Route path='/api/endpoint/new/:id' element={<ApiEndpoint />} />
-          <Route path='/api/endpoints/:id' element={<Endpoint />} />
+          <Route path='/api/api/new/:id' element={isLoggedIn ? <MyApiPage /> : <Navigate to='/login' />} />
+          <Route path='/api/endpoint/new/:id' element={isLoggedIn ? <ApiEndpoint /> : <Navigate to='/login' />} />
+          <Route path='/api/endpoints/:id' element={isLoggedIn ? <Endpoint /> : <Navigate to='/login' />} />
 
           {/* User Pages */}
-          <Route path='/user/:id' element={<UserProfile />} />
-          <Route path='/user/settings' element={<Settings />} />
+          <Route path='/user/:id' element={isLoggedIn ? <UserProfile /> : <Navigate to='/login' />} />
+          <Route path='/user/settings' element={isLoggedIn ? <Settings /> : <Navigate to='/login' />} />
 
           {/* Organization Pages */}
-          <Route path='/orgs/:Id'  element={<OrganizationPage />} />
-          <Route path='/orgs/create-new' element={<CreateOrg />} />
-          <Route path='/orgs-list' element={<OrgList />} />
+          <Route path='/orgs/:Id'  element={isLoggedIn ? <OrganizationPage /> : <Navigate to='/login' />} />
+          <Route path='/orgs/create-new' element={isLoggedIn ? <CreateOrg /> : <Navigate to='/login' />} />
+          <Route path='/orgs-list/:id' element={isLoggedIn ? <OrgList /> : <Navigate to='/login' />} />
         </Routes>
       </div>
     </ThemeProvider>

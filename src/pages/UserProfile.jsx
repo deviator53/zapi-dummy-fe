@@ -84,7 +84,7 @@ const UserProfile = () => {
             { data.map((item, index) => (
               item.profileId === user.profileId ?
               <Grid item xs={12} sm={6} md={4} lg={4} xl={3} style={{ padding:'2rem'}} key={index}>
-                <UserTextbox primary={item} rowKey='id'/>
+                <UserTextbox key={item.id}>{item}</UserTextbox>
               </Grid>
              : <h2 >No Published APIs</h2>))}
             </Grid> 
