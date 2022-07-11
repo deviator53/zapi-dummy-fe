@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   })
 
 
-const UserTextbox = ({name, id, description, logo}) => {
+const UserTextbox = ({ name, id, description, logo }) => {
 
     const classes = useStyles()
    
