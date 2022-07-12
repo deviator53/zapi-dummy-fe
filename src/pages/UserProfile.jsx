@@ -4,7 +4,7 @@ import { Stack, Typography, Tabs, Tab, Grid } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import {TabPanel} from '../components'
-import { UserHeader, UserTextbox } from '../components'
+import { UserHeader, Textbox } from '../components'
 import SubscribedApiProfile from '../components/SubscribedApiProfile'
 
 const array = ['Weather API', 'Entertainmet API', 'Transport API', 'Finance API', 'Food API', 'Other API']
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
   tabpanel:{
     textAlign:'center',
-    marginTop:'5rem',
+    margin:'1rem 0',
   },
   tabs:{
     '&:hover':{
@@ -31,14 +31,6 @@ const UserProfile = () => {
   const classes = useStyles()
   const [tab, setTab] = useState(0)
   const { user } = useSelector(store => store.user)
-  const [userData, setUserData] = useState([])
-  try {
-    async function getUserData() {
-      const res = await fetch('http://18.207.143.26:3000/api/api/custom_find')
-    }
-  } catch {
-    
-  }
 
   return (
     <Stack direction='column' px={1}>
@@ -72,17 +64,26 @@ const UserProfile = () => {
         </Tabs>
         <Stack className={classes.tabpanel}>
           <TabPanel value={tab} index={0}>
-          <Grid container spacing={{ xs: 2, md: 3 }}>
+          <Grid container spacing={1}>
             {array ? array.map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={4} xl={3} style={{ padding:'2rem'}} key={index}>
-                <UserTextbox name={item} />
+              <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={index}>
+                <Textbox {...item} />
               </Grid>
-            )) : <h2 >No Published APIs</h2>}
+            )) : 
+            <Stack alignItems='center' justifyContent='center'>
+              <h2 >No Published APIs</h2>
+            </Stack>}
             </Grid> 
           </TabPanel>
-          <TabPanel value={tab} index={1}><SubscribedApiProfile /></TabPanel>
-          <TabPanel value={tab} index={2}>Not Followed Yet</TabPanel>
-          <TabPanel value={tab} index={3}>Not Following Yet</TabPanel>
+          <TabPanel value={tab} index={1}>
+            <SubscribedApiProfile />
+          </TabPanel>
+          <TabPanel value={tab} index={2}>
+            Not Followed Yet
+          </TabPanel>
+          <TabPanel value={tab} index={3}>
+            Not Following Yet
+          </TabPanel>
         </Stack>
       </Stack>
     </Stack>   

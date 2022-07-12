@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
-import { InputField } from '../components'
+// import { InputField } from '../components'
 
 // import OrganizationSidebar from '../components/OrganizationSidebar'
 import OrganizationInvite from '../components/OrganizationInvite';
