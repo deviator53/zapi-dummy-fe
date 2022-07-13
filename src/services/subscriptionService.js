@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 const base_url = process.env.REACT_APP_BASE_URL
 
 export const useSubscriptionService = () => {
-    const { singleApis } = useSelector(store => store.singleApis)
     const [error, setError] = useState()
     const [loading, setLoading] = useState(false)
 
@@ -22,7 +21,7 @@ export const useSubscriptionService = () => {
                 throw new Error(data.message)
             }
             setLoading(false)
-            console.log(data)
+            return data
         } catch (error) {
             setError(error.message)
             setLoading(false)

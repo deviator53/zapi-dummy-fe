@@ -16,6 +16,9 @@ const useStyles = makeStyles({
   },
   formControl: {
     width: '100%'
+  },
+  padding: {
+    paddingLeft: '30px'
   }
 })
 
@@ -55,7 +58,7 @@ const CreateOrg = () => {
     }
   }
   return (
-    <Stack direction ='column'>
+    <Stack direction ='column' className={classes.padding}>
       {error && (
       <Alert style={{ position: 'absolute', top: '10%', zIndex:3 }} severity='error' onClose={clearError}>
         {error}

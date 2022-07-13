@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material'
-import { KeyboardArrowDown } from '@mui/icons-material'
-import LooksOneIcon from '@mui/icons-material/LooksOne';
-import LooksTwoIcon from '@mui/icons-material/LooksTwo';
-import Looks3Icon from '@mui/icons-material/Looks3';
+import { KeyboardArrowDown, LooksOne, LooksTwo, Looks3 } from '@mui/icons-material';
 import { blue } from '@mui/material/colors';
 import { makeStyles } from '@mui/styles'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,12 +33,13 @@ const useStyles = makeStyles({
     }
 })
 
-const Pricing = () => {
+const Pricing = ({setOpenPopup}) => {
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const dispatch = useDispatch()
-    const {pricing, isLoading} = useSelector(store => store.pricing)
+    const { pricing, isLoading } = useSelector(store => store.pricing)
+    const { user } = useSelector(store => store.user)
 
     const handleMenu = (e) => {
         setAnchorEl(e.currentTarget)
@@ -53,11 +51,9 @@ const Pricing = () => {
 
     useEffect(() => {
         dispatch(getPricing())
-        console.log(pricing);
     },[])
 
     if(isLoading) return <LoadingSpinner/>
-    console.log(pricing);
 
   return (
     <Stack direction='column' alignItems='center' justifyContent='center'>
@@ -71,12 +67,12 @@ const Pricing = () => {
             </Typography>
         </Stack>
         {/* Select Account Section */}
-        <Stack direction='row' width='20%' alignItems='center' justifyContent='space-between' className={classes.user}>
+        <Stack direction='row' alignItems='center' justifyContent='space-between' className={classes.user}>
            <Stack direction='row' alignItems='center'>
-               <Avatar sx={{ width: 35, height: 35, objectFit: 'contain' }}/>
-               <Stack direction='column'>
+               <Avatar sx={{width: 35, height: 35, objectFit: 'contain'}}/>
+               <Stack direction='column' px={4}>
                    <Typography variant='body1'>Personal Account</Typography>
-                   <Typography variant='caption'>Dummy Name</Typography>
+                   <Typography variant='caption'>{user.fullName}</Typography>
                </Stack>
            </Stack>
            <IconButton onClick={handleMenu}>
@@ -96,7 +92,7 @@ const Pricing = () => {
         </Stack>
         {/* Pricing Table Section */}
         <Stack direction='column' width='80%' alignItems='center' justifyContent='space-between'>
-            <PricingTable />
+            <PricingTable setOpenPopup={setOpenPopup} />
         </Stack>
          {/* FAQ Section */}
         <Stack direction='column' width='70%' textAlign='center'>
@@ -209,7 +205,7 @@ const Pricing = () => {
             <Stack alignItems='center'>
                 <Stack textAlign='center' justifyContent='space-between' spacing={1} direction={{xs: 'column', sm: 'column', md: 'row', lg: 'row'}} mt={2}>
                     <Stack alignItems='center'>
-                        <LooksOneIcon sx={{ width: 65, height: 65, objectFit: 'contain', color: blue[500]}}/>
+                        <LooksOne sx={{ width: 65, height: 65, objectFit: 'contain', color: blue[500]}}/>
                         <Typography variant='h5' gutterBottom>
                             Call volume and billing
                         </Typography>
@@ -218,7 +214,7 @@ const Pricing = () => {
                         </Typography>
                     </Stack>
                     <Stack alignItems='center'>
-                        <LooksTwoIcon sx={{ width: 65, height: 65, objectFit: 'contain', color: blue[500] }}/>
+                        <LooksTwo sx={{ width: 65, height: 65, objectFit: 'contain', color: blue[500] }}/>
                         <Typography variant='h5' gutterBottom>
                             Errors and latency
                         </Typography>
@@ -227,7 +223,7 @@ const Pricing = () => {
                         </Typography>
                     </Stack>
                     <Stack alignItems='center'>
-                        <Looks3Icon sx={{ width: 65, height: 65, objectFit: 'contain', color: blue[500] }}/>
+                        <Looks3 sx={{ width: 65, height: 65, objectFit: 'contain', color: blue[500] }}/>
                         <Typography variant='h5' gutterBottom>
                             Logs for your API calls
                         </Typography>

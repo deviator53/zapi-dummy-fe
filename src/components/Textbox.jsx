@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { Avatar, Paper, Stack, Typography } from '@mui/material'
 import { AccessTimeOutlined, BookmarkBorderOutlined, DangerousOutlined, DoneOutlined, ShowChartOutlined, VerifiedOutlined } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles({
   paperOuter: {
@@ -21,9 +20,6 @@ const useStyles = makeStyles({
 
 const Textbox = ({ id, name, description, status, logo }) => {
   const classes = useStyles()
-  const { singleApis } = useSelector(store => store.singleApis)
-
-
 
   return (
     <div className={classes.paperOuter}>

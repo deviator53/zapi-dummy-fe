@@ -5,9 +5,8 @@ import { makeStyles } from '@mui/styles'
 import { useFetch } from '../services/useFetch';
 import {TabPanel} from '../components'
 import { UserHeader, UserTextbox } from '../components'
+import SubscribedApiProfile from '../components/SubscribedApiProfile'
 
-// const array = ['Weather API', 'Entertainment API', 'Transport API', 'Finance API', 'Food API', 'Other API']
-// const arrayApis = array.length
 
 const base_url = process.env.REACT_APP_BASE_URL
 
@@ -19,7 +18,7 @@ const useStyles = makeStyles({
   },
   tabpanel:{
     textAlign:'center',
-    marginTop:'5rem',
+    margin:'1rem 0',
   },
   tabs:{
     '&:hover':{
@@ -59,12 +58,6 @@ const UserProfile = () => {
             </span>
           </Typography>
           <Typography variant='h6' style={{ fontSize: '1rem'}}>
-            username: 
-            <span style={{ color: 'var(--base)', marginLeft: 10 }}>
-              {user.username ? user.username : '@username'}
-            </span>
-          </Typography>
-          <Typography variant='h6' style={{ fontSize: '1rem'}}>
             Email: 
             <span style={{ color: 'var(--base)', marginLeft: 10 }}>
               {user ? user.email : 'someone@example.com'}
@@ -74,24 +67,32 @@ const UserProfile = () => {
       <Stack>
         <Tabs  className={classes.mainTab} value={tab} onChange={(e, newValue)=>setTab(newValue)}>
           <Tab  className={classes.tabs} label= {`Published APIs (${arrayApis})`}/>
-          <Tab className={classes.tabs} label='APIs Following(0)'/>
+          <Tab className={classes.tabs} label='Subscribed APIs'/>
           <Tab className={classes.tabs} label='Followed By(0)' />
           <Tab className={classes.tabs} label='Following(0)'/>
         </Tabs>
         <Stack className={classes.tabpanel}>
           <TabPanel value={tab} index={0}>
-          <Grid container spacing={{ xs: 2, md: 3 }}>
-            { data.map((item, index) => (
-              item.profileId === user.profileId ?
-              <Grid item xs={12} sm={6} md={4} lg={4} xl={3} style={{ padding:'2rem'}} key={index}>
-                <UserTextbox key={item.id}>{item}</UserTextbox>
+          <Grid container spacing={1}>
+            {lists ? lists.map((item, index) => (
+              <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={index}>
+                <UserTextbox key={item} name={item.name} id={item.id} description={item.description}/>
               </Grid>
-             : <h2 >No Published APIs</h2>))}
+            )) : 
+            <Stack alignItems='center' justifyContent='center'>
+              <h2 >No Published APIs</h2>
+            </Stack>}
             </Grid> 
           </TabPanel>
-          <TabPanel value={tab} index={1}>Not APIs Following</TabPanel>
-          <TabPanel value={tab} index={2}>Not Followed Yet</TabPanel>
-          <TabPanel value={tab} index={3}>Not Following Yet</TabPanel>
+          <TabPanel value={tab} index={1}>
+            <SubscribedApiProfile />
+          </TabPanel>
+          <TabPanel value={tab} index={2}>
+            Not Followed Yet
+          </TabPanel>
+          <TabPanel value={tab} index={3}>
+            Not Following Yet
+          </TabPanel>
         </Stack>
       </Stack>
     </Stack>   

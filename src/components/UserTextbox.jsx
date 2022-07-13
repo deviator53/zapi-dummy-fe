@@ -4,10 +4,9 @@ import { Avatar, Paper, Stack, Typography } from '@mui/material'
 import { BookmarkBorderOutlined  } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-// import { useFetch } from '../services/useFetch';
 import { useSelector } from 'react-redux';
 
-const base_url = process.env.REACT_APP_BASE_URL
+
 
 
 const useStyles = makeStyles({
@@ -25,11 +24,10 @@ const useStyles = makeStyles({
   })
 
 
-const UserTextbox = ({name, id, description, logo}) => {
+const UserTextbox = ({ name, id, description, logo }) => {
 
     const classes = useStyles()
    
-    const { singleApis } = useSelector(store => store.singleApis)
     
     
 

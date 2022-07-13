@@ -27,17 +27,17 @@ const UserMenu = () => {
   return (
     <>
     <IconButton onClick={handleMenu}>
-                    <Avatar />
+        <Avatar />
     </IconButton>
     <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <Paper sx={{ width: 300 }}>
             <MenuItem onClick={handleClose}>
                 <ListItemText>
                     <Typography variant='h6'>
-                        Dummy User
+                        {user.fullName}
                     </Typography>
                     <Typography variant='subtitlte2' color='textSecondary'>
-                        dummyemail@example.com
+                        {user.email}
                     </Typography>
                 </ListItemText>
             </MenuItem>

@@ -38,8 +38,7 @@ const useStyles = makeStyles({
 const Home = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { apis, isLoading, error } = useSelector(store => store.apis)
-  console.log(apis)
+  const { isLoading, error } = useSelector(store => store.apis)
 
   if(isLoading) return <LoadingSpinner />
 
