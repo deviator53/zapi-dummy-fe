@@ -4,6 +4,9 @@ import { Avatar, Paper, Stack, Typography } from '@mui/material'
 import { BookmarkBorderOutlined  } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useSelector } from 'react-redux';
+
+
 
 
 const useStyles = makeStyles({
@@ -21,8 +24,13 @@ const useStyles = makeStyles({
   })
 
 
-const UserTextbox = ({ id, name, logo, description}) => {
+const UserTextbox = ({ name, id, description, logo }) => {
+
     const classes = useStyles()
+   
+    
+    
+
 
     return (
       <div className={classes.paperOuter}>

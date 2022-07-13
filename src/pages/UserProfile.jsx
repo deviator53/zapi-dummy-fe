@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Stack, Typography, Tabs, Tab, Grid } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-
+import { useFetch } from '../services/useFetch';
 import {TabPanel} from '../components'
-import { UserHeader, Textbox } from '../components'
+import { UserHeader, UserTextbox } from '../components'
 import SubscribedApiProfile from '../components/SubscribedApiProfile'
 
-const array = ['Weather API', 'Entertainmet API', 'Transport API', 'Finance API', 'Food API', 'Other API']
-const arrayApis = array.length
+
+const base_url = process.env.REACT_APP_BASE_URL
 
 const useStyles = makeStyles({
   mainTab:{
@@ -28,24 +28,33 @@ const useStyles = makeStyles({
 })
 
 const UserProfile = () => {
-  const classes = useStyles()
   const [tab, setTab] = useState(0)
+  const classes = useStyles()
+  const { data } = useFetch(`${base_url}/api`)
   const { user } = useSelector(store => store.user)
+
+  const listData = (name, id, description ) => {
+      return { name, id, description }
+  }
+
+  const lists = []
+  data.map((api) => {
+      if (api.profileId === user.profileId) {
+          lists.push(listData(api.name, api.id, api.description))
+      }
+  })
+  const arrayApis = lists.length
+  console.log(lists)
+  
 
   return (
     <Stack direction='column' px={1}>
       <UserHeader image={user.image} id={user.id} />
-      <Stack direction='column' spiacing={2} my={4} >
+      <Stack direction='column' spacing={2} my={4} >
           <Typography variant='h6' style={{ fontSize: '1rem'}}>
             Name: 
             <span style={{ color: 'var(--base)', marginLeft: 10 }}>
               {user.fullName ? user.fullName : 'Dummy Name'}
-            </span>
-          </Typography>
-          <Typography variant='h6' style={{ fontSize: '1rem'}}>
-            username: 
-            <span style={{ color: 'var(--base)', marginLeft: 10 }}>
-              {user.username ? user.username : '@username'}
             </span>
           </Typography>
           <Typography variant='h6' style={{ fontSize: '1rem'}}>
@@ -65,9 +74,9 @@ const UserProfile = () => {
         <Stack className={classes.tabpanel}>
           <TabPanel value={tab} index={0}>
           <Grid container spacing={1}>
-            {array ? array.map((item, index) => (
+            {lists ? lists.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={index}>
-                <Textbox {...item} />
+                <UserTextbox key={item} name={item.name} id={item.id} description={item.description}/>
               </Grid>
             )) : 
             <Stack alignItems='center' justifyContent='center'>
