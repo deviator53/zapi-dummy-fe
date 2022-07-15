@@ -43,7 +43,7 @@ const OrganizationInvite = (props) => {
             </Stack>
             <Stack direction='row' mx={4} width={155}>
                 <Select style={{ width:'100%', height:'43px', color:"black"}} fullWidth onChange={(e) => setRole(e.target.value)} defaultValue="role">
-                    <MenuItem value='role'>Role</MenuItem>
+                          <MenuItem value='role' style={{ pointerEvents: 'none' }}>Role</MenuItem>
                     <MenuItem value="developer">Developer</MenuItem>
                     <MenuItem value="admin">Admin</MenuItem>
                 </Select>

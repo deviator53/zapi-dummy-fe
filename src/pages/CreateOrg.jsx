@@ -68,12 +68,12 @@ const CreateOrg = () => {
         </Stack>
         <Stack direction='column' my={2}>
           <div>
-            <InputField type= 'number' label= 'Organization Seat' placeholder='Number of seats' value={number_of_seats} onChange={(e) => setNumber_of_seats(e.target.value)} />
+            <InputField type= 'number' min="0" label= 'Organization Seat' placeholder='Number of seats' value={number_of_seats} onChange={(e) => setNumber_of_seats(e.target.value)} />
           </div>
         </Stack>
         <Stack direction='column' my={2}>
           <div>
-            <InputField type= 'number' label= 'Number of Employees' placeholder='Number of employees' value={number_of_employees} onChange={(e) => setNumber_of_employees(e.target.value)} />
+            <InputField type= 'number' min="0" label= 'Number of Employees' placeholder='Number of employees' value={number_of_employees} onChange={(e) => setNumber_of_employees(e.target.value)} />
           </div>
         </Stack>
           <Button style={{width:'15%', height:'45px'}} type='submit' variant='contained'>
