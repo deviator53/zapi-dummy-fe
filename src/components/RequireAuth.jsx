@@ -1,15 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
-export const RequireAuth = ({ children }) => {
+export const RequireAuth = () => {
   const { isLoggedIn } = useSelector(store => store.user)
   const location = useLocation()
-  
-  if(!isLoggedIn) {
-    return <Navigate to='/login' state={{ from: location }} replace />
-  }
 
-  return children
+  return (
+    !isLoggedIn ? <Navigate to='/login' state={{ from: location }} replace /> : <Outlet />
+    
+  )
 }

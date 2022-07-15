@@ -60,21 +60,20 @@ const useStyles = makeStyles({
 const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loc, setLoc] = useState('')
+  const [location, setLocation] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   const classes = useStyles()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { clearError, error, loading, loginUser } = useLoginService()
-  const location = useLocation()
-  // const from = location.state?.from?.pathname || "/"
+  const prevPath = useLocation()
 
   const getLocation = async() => {
     const res = await fetch(
       "https://geolocation-db.com/json/8dd79c70-0801-11ec-a29f-e381a788c2c0"
     ).catch(() => {});
     const data = res ? await res.json() : null;
-    setLoc(data)
+    setLocation(data)
   }
 
   const handleSubmit = async(e) => {
@@ -83,7 +82,7 @@ const LoginPage = () => {
     const device = deviceDetect()
     const time = new Date().toISOString()
 
-    const payload = {email, password, loc, time , device}
+    const payload = {email, password, location, time , device}
 
     try {
       const data = await loginUser(payload)
@@ -95,9 +94,15 @@ const LoginPage = () => {
       }
 
       if(!data || data === undefined) return
+
+      if(!prevPath.state || prevPath.state === null) {
+        navigate('/')
+      } else {
+        navigate(prevPath.state.from.pathname, { replace: true })
+      }
+        
+    
       
-      // navigate(from, { replace: true })
-      navigate('/')
 
     } catch (error) {
       console.log(error)
