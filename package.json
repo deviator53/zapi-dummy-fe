@@ -26,7 +26,11 @@
     "react-slick": "^0.29.0",
     "react-typed": "^1.2.0",
     "slick-carousel": "^1.8.1",
+<<<<<<< HEAD
     "url-loader": "^4.1.1"
+=======
+    "universal-cookie": "^4.0.4"
+>>>>>>> 9443ebc2b56fb6c5a4f9b7df1c18a876a9d18cf2
   },
   "scripts": {
     "start": "react-scripts start",
