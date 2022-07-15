@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deviceDetect } from 'react-device-detect'
 import { Alert, Button, Checkbox, Divider, FormControlLabel, ListItem, Stack, Typography } from '@mui/material'
@@ -60,19 +60,21 @@ const useStyles = makeStyles({
 const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [location, setLocation] = useState('')
+  const [loc, setLoc] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   const classes = useStyles()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { clearError, error, loading, loginUser } = useLoginService()
+  const location = useLocation()
+  // const from = location.state?.from?.pathname || "/"
 
   const getLocation = async() => {
     const res = await fetch(
       "https://geolocation-db.com/json/8dd79c70-0801-11ec-a29f-e381a788c2c0"
     ).catch(() => {});
     const data = res ? await res.json() : null;
-    setLocation(data)
+    setLoc(data)
   }
 
   const handleSubmit = async(e) => {
@@ -81,7 +83,7 @@ const LoginPage = () => {
     const device = deviceDetect()
     const time = new Date().toISOString()
 
-    const payload = {email, password, location, time , device}
+    const payload = {email, password, loc, time , device}
 
     try {
       const data = await loginUser(payload)
@@ -93,8 +95,10 @@ const LoginPage = () => {
       }
 
       if(!data || data === undefined) return
+      
+      // navigate(from, { replace: true })
+      navigate('/')
 
-      navigate(`/`)
     } catch (error) {
       console.log(error)
     }
