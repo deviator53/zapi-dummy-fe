@@ -14,6 +14,7 @@ import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import OrganizationPage from './pages/OrganizationPage'
 import OrgList from './pages/OrgList'
+import { RequireAuth } from './components/RequireAuth'
 
 const useStyles = makeStyles({
   router_container: {
@@ -27,7 +28,6 @@ const App = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isLoggedIn } = useSelector(store => store.user)
   const cookies = new Cookies()
 
   const accessToken = cookies.get('accessToken')
@@ -55,10 +55,6 @@ const App = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
-  useEffect(() => {
-    dispatch(getSingleApis())
-  },[])
-
   return (
     <ThemeProvider theme={theme}>
       <Navbar query={query} setQuery={setQuery} />
@@ -74,18 +70,24 @@ const App = () => {
           <Route path='/api/:id' element={<SingleApi />} />
           <Route path='/api/categories' element={<Categories />} />
           <Route path='/api/categories/:id' element={<Category />} />
-          <Route path='/api/api/new/:id' element={isLoggedIn ? <MyApiPage /> : <Navigate to='/login' />} />
-          <Route path='/api/endpoint/new/:id' element={isLoggedIn ? <ApiEndpoint /> : <Navigate to='/login' />} />
-          <Route path='/api/endpoints/:id' element={isLoggedIn ? <Endpoint /> : <Navigate to='/login' />} />
+
+          <Route element={<RequireAuth />}>
+
+          <Route path='/api/api/new/:id' element={<MyApiPage />} />
+          <Route path='/api/endpoint/new/:id' element={<ApiEndpoint />} />
+          <Route path='/api/endpoints/:id' element={<Endpoint />} />
 
           {/* User Pages */}
-          <Route path='/user/:id' element={isLoggedIn ? <UserProfile /> : <Navigate to='/login' />} />
-          <Route path='/user/settings' element={isLoggedIn ? <Settings /> : <Navigate to='/login' />} />
+          <Route path='/user/:id' element={<UserProfile />} />
+          <Route path='/user/settings' element={<Settings />} />
 
           {/* Organization Pages */}
-          <Route path='/orgs/:id'  element={isLoggedIn ? <OrganizationPage /> : <Navigate to='/login' />} />
-          <Route path='/orgs/create-new' element={isLoggedIn ? <CreateOrg /> : <Navigate to='/login' />} />
-          <Route path='/orgs-list/:id' element={isLoggedIn ? <OrgList /> : <Navigate to='/login' />} />
+          <Route path='/orgs/:Id'  element={<OrganizationPage />} />
+          <Route path='/orgs/create-new' element={<CreateOrg />} />
+          <Route path='/orgs-list/:id' element={<OrgList />} />
+          
+          </Route>
+
         </Routes>
       </div>
     </ThemeProvider>

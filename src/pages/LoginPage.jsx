@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deviceDetect } from 'react-device-detect'
 import { Alert, Button, Checkbox, Divider, FormControlLabel, ListItem, Stack, Typography } from '@mui/material'
@@ -67,6 +67,7 @@ const LoginPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { clearError, error, loading, loginUser } = useLoginService()
+  const prevPath = useLocation()
   const cookies = new Cookies()
 
   const getLocation = async() => {
@@ -103,7 +104,12 @@ const LoginPage = () => {
       cookies.set('fullName', fullName)
       cookies.set('email', email)
 
-      navigate(`/`)
+      if(!prevPath.state || prevPath.state === null) {
+        navigate('/')
+      } else {
+        navigate(prevPath.state.from.pathname, { replace: true })
+      }
+
     } catch (error) {
       console.log(error)
     }
