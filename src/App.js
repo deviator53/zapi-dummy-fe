@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThemeProvider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import Cookies from 'universal-cookie'
 
 import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint } from './pages'
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'
 import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
-import { getWithExpiry } from './services/loginService'
 import { login } from './redux/features/user/userSlice'
 import ApiEndpoint from './pages/ApiEndpoint'
 import OrganizationPage from './pages/OrganizationPage'
@@ -26,27 +26,38 @@ const App = () => {
   const [query, setQuery] = useState('')
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { isLoggedIn, user } = useSelector(store => store.user)
+  const navigate = useNavigate()
+  const { isLoggedIn } = useSelector(store => store.user)
+  const cookies = new Cookies()
 
-  const getUserFromLS = () => {
-    const user = getWithExpiry('user')
-    if(!user) return null
-    dispatch(login(user))
+  const accessToken = cookies.get('accessToken')
+
+  const logInUser = () => {
+    if(accessToken) {
+      const accessToken = cookies.get('accessToken')
+      const refreshToken = cookies.get('refreshToken')
+      const profileId = cookies.get('profileId')
+      const fullName = cookies.get('fullName')
+      const email = cookies.get('email')
+      const data = { accessToken, refreshToken, profileId, fullName, email}
+      dispatch(login(data))
+      navigate(`/user/${profileId}`)
+    }
   }
 
   useEffect(() =>{
       dispatch(getSingleApis())
-    },[]) 
+    },[])
 
   useEffect(() => {
     dispatch(getApis())
-    getUserFromLS()
+    logInUser()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   useEffect(() => {
     dispatch(getSingleApis())
-  })
+  },[])
 
   return (
     <ThemeProvider theme={theme}>
