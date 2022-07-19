@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from "axios";
 import { Button, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
@@ -23,12 +24,29 @@ const useStyles = makeStyles({
 
 const ForgotPassword = () => {
   const classes = useStyles()
-  const [email, setEmail] = useState('')
+  const [msg, setMsg] = useState('')
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
+    const userData = {email: email}
     e.preventDefault()
-    console.log(email)
-    setEmail('')
+    try{
+      const url = `http://localhost:3000/api-hub/auth/forgot/post`;
+      const res = await axios.post(url, userData);
+      console.log(res);
+      setMsg(res.data.message);
+      setError("");   
+    } catch (error){
+      if (
+        error.response &&
+				error.response.status >= 400 &&
+				error.response.status <= 500
+      ){
+        setError(error.response.data.message);
+				setMsg("");
+      }
+    }
   }
 
   return (
@@ -39,8 +57,10 @@ const ForgotPassword = () => {
     <Typography variant='body1'>
       No need to worry, we'll send you an email with instructions to reset.
     </Typography>
+        {error && <div className="error_msg">{error}</div>}
+				{msg && <div className="success_msg">{msg}</div>}
     <form className={classes.form} onSubmit={handleSubmit}>
-      <InputField fullWidth type='text' value={email} onChange={(e) => setEmail(e.target.value)} label='Email' placeholder='Enter your email' />
+      <InputField fullWidth type='email' value={email} required onChange={(e) => setEmail(e.target.value)} label='Email' placeholder='Enter your email' />
       <Button type='submit' variant='contained'>
         reset password
       </Button>
