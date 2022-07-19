@@ -64,7 +64,7 @@ const Navbar = () => {
     return (
         <>
             {/* modal for logout confirmatio */}
-            {isOpen && <Modal message='Are you sure you want to log out?' confirm={() => logoutFn} />}
+            {isOpen && <Modal message='Are you sure you want to log out?' confirm={logoutFn} />}
             {/* search modal */}
             {isSearchModalOpen && <Search closeModal={() => dispatch(closeSearchModal())} />}
             <nav className={classes.nav}>
