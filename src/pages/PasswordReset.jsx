@@ -21,44 +21,108 @@ const useStyles = makeStyles({
     }
   }
 })
+
+const identity_url = process.env.REACT_APP_IDENTITY_URL
+
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,24}$/;
+
 const PasswordReset = () => {
     const classes = useStyles()
-    const [validUrl, setValidUrl] = useState(false);
-	const [password, setPassword] = useState("");
-	const [msg, setMsg] = useState("");
-	const [error, setError] = useState("");
-	const param = useParams();
-    const url = `http://localhost:3000/api-hub/auth/auth/reset/${param.id}/${param.token}`;
+	  const [msg, setMsg] = useState("");
+	  const [error, setError] = useState("");
+    const [passwordStrength, setPasswordStrength] = useState("");
+	  const [password, setPassword] = useState("");
+	//   const [confirmPassword, setConfirmPassword] = useState("");
+	  const [passwordConfirm, setPasswordConfirm] = useState("")
+	  const [bgColor, setBgColor] = useState("");
+	  const [isDisabled, setIsDisabled] = useState(true);
+	  const param = useParams();
 
-    useEffect(() => {
-		const verifyUrl = async () => {
-			try {
-				await axios.get(url);
-				setValidUrl(true);
-			} catch (error) {
-				setValidUrl(false);
-			}
-		};
-		verifyUrl();
-	}, [param, url]);
+    const url = `${identity_url}/auth/reset/${param.id}/${param.token}`;
+
+	// useEffect(()=>{
+	// 	console.log(param);
+	// },[param])
+
+  useEffect(() => {
+		if (passwordStrength === "") {
+			setBgColor("#30343b");
+		} else if (passwordStrength === "Weak") {
+			setBgColor("#2d2f2d");
+		} else if (passwordStrength === "Medium") {
+			setBgColor("#08320a");
+		} else if (passwordStrength === "Strong") {
+			setBgColor("#08320a");
+		}
+	}, [passwordStrength]);
+
+	const strongRegex = new RegExp(
+		"^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$",
+		"g",
+	);
+	const mediumRegex = new RegExp(
+		"^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$",
+		"g",
+	);
+
+  const analyzePasswordStrength = (password) => {
+		if (strongRegex.test(password)) {
+			setPasswordStrength("strong");
+			setIsDisabled(false);
+		} else if (mediumRegex.test(password)) {
+			setPasswordStrength("medium");
+			setIsDisabled(false);
+		} else {
+			setPasswordStrength("weak");
+			setIsDisabled(true);
+		}
+	};
+
+	const handlePasswordChange = (event) => {
+		setPassword(event.target.value);
+		analyzePasswordStrength(event.target.value);
+	};
+
+	
+
+	const handleConfirmPasswordChange = (event) => {
+		setPasswordConfirm(event.target.value);
+	};
 
     const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const { data } = await axios.post(url, { password });
-			setMsg(data.message);
-			setError("");
-			window.location = "/login";
-		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-				setMsg("");
+		if (password !== passwordConfirm) {
+			setPassword("");
+			setPasswordConfirm("");
+			setTimeout(()=>{
+				setError("");
+			}, 5000);
+			return setError("Passwords don't match");
+		} 
+			// Post to server
+			
+			try {
+				const res = await axios.post(url, { password });
+				// console.log(res);
+				
+				setMsg(res.data.message);
+				setError("");
+				window.location = "/email-verify";
+			} catch (error) {
+				if (
+					error.response &&
+					error.response.status >= 400 &&
+					error.response.status <= 500
+				  ){
+					setError(error.response.data.message);
+					setTimeout(()=> {
+						setError("");
+					},5000);
+					setMsg("");
+				  }
 			}
-		}
+		
+		
 	};
 
 
@@ -71,9 +135,10 @@ const PasswordReset = () => {
     {error && <div className="error_msg">{error}</div>}
 	{msg && <div className="success_msg">{msg}</div>}
     <form className={classes.form} onSubmit={handleSubmit}>
-      <InputField fullWidth type='password' name="password" value={password} required onChange={(e) => setPassword(e.target.value)} label='Password' placeholder='Enter your new password' />
-      <InputField fullWidth type='password' name="passwordConfirm" value={password} required onChange={(e) => setPassword(e.target.value)} label='Confirm Password' placeholder='Confirm your new password' />
-      <Button type='submit' variant='contained'>
+      <InputField fullWidth type='password' name="password" value={password} required onChange={handlePasswordChange} label='Password' placeholder='Enter your new password' />
+      <InputField fullWidth type='password' name="passwordConfirm" value={passwordConfirm} required onChange={handleConfirmPasswordChange} label='Confirm Password' placeholder='Confirm your new password' />
+      <p>{passwordStrength}</p>
+      <Button disabled={isDisabled} style={{ backgroundColor: bgColor }} type='submit' variant='contained'>
         Submit
       </Button>
     </form>
@@ -82,7 +147,7 @@ const PasswordReset = () => {
         &larr; Back to log in.
       </Link>
     </Typography>
-  </Stack>
+  </Stack> 
   </>
   )
 }

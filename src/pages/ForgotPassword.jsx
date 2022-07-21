@@ -22,6 +22,9 @@ const useStyles = makeStyles({
   }
 })
 
+const identity_url = process.env.REACT_APP_IDENTITY_URL
+
+
 const ForgotPassword = () => {
   const classes = useStyles()
   const [msg, setMsg] = useState('')
@@ -29,15 +32,16 @@ const ForgotPassword = () => {
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
-    const userData = {email: email}
     e.preventDefault()
+    const userData = {email: email}
     try{
-      const url = `http://localhost:3000/api-hub/auth/forgot/post`;
+      const url = `${identity_url}/auth/forgot/post`;
       const res = await axios.post(url, userData);
-      console.log(res);
+      // console.log(res);
       setMsg(res.data.message);
       setError("");   
     } catch (error){
+      console.log(error);
       if (
         error.response &&
 				error.response.status >= 400 &&
@@ -48,6 +52,8 @@ const ForgotPassword = () => {
       }
     }
   }
+
+  
 
   return (
   <Stack direction='column' height='60vh' alignItems='center' justifyContent='center' textAlign='center' py={1} px={2}>

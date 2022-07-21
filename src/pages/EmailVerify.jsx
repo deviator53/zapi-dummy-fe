@@ -5,6 +5,7 @@ import { Button, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 
+const identity_url = process.env.REACT_APP_IDENTITY_URL
 
 
 const EmailVerify = () => {
@@ -14,7 +15,7 @@ const EmailVerify = () => {
     useEffect(() => {
 		const verifyEmailUrl = async () => {
 			try {
-				const url = `http://localhost:3000/api-hub/auth/auth/reset/${param.id}/${param.token}`;
+				const url = `${identity_url}/api-hub/auth/reset/${param.token}`;
 				const { data } = await axios.get(url);
 				console.log(data);
 				setValidUrl(true);
@@ -32,7 +33,7 @@ const EmailVerify = () => {
             <h1>Email verified successfully</h1>
             <Link to="/login">
             <Button type='submit' variant='contained'>
-                    Submit
+                    Go to Login Page
             </Button>
             </Link>
 		</div>
