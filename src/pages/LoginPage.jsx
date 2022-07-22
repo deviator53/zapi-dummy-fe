@@ -92,10 +92,11 @@ const LoginPage = () => {
 
       if(!data || data === undefined) return
 
-      const { data: { access, refresh, profileId, fullName, email } } = data
+      const { data: { access, refresh, profileId, userId, fullName, email } } = data
       cookies.set('accessToken', access)
       cookies.set('refreshToken', refresh)
       cookies.set('profileId', profileId)
+      cookies.set('userId', userId)
       cookies.set('fullName', fullName)
       cookies.set('email', email)
 

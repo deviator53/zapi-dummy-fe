@@ -38,7 +38,6 @@ export const useHttpRequest = () => {
         } catch (error) {
             setError(error.message)
             setLoading(false)
-            throw error
         }
     // Empty dependency array to run function only once
     },[])
