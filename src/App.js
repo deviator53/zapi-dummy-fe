@@ -37,12 +37,13 @@ const App = () => {
       const accessToken = cookies.get('accessToken')
       const refreshToken = cookies.get('refreshToken')
       const profileId = cookies.get('profileId')
+      const userId = cookies.get('userId')
       const fullName = cookies.get('fullName')
       const email = cookies.get('email')
-      const data = { accessToken, refreshToken, profileId, fullName, email}
+      const data = { accessToken, refreshToken, profileId, userId, fullName, email}
       dispatch(login(data))
-      navigate(`/user/${profileId}`)
     }
+    navigate('/')
   }
 
   useEffect(() =>{
