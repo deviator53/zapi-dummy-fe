@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie'
 import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint } from './pages'
 import EmailVerify from './pages/EmailVerify';
 import PasswordReset from './pages/PasswordReset'
+import ChangePassword from './pages/ChangePassword'
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'
@@ -68,7 +69,9 @@ const App = () => {
           <Route path='/signup' element={<Signup />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/email-verify' element={<EmailVerify />} />
-          <Route path='/password-reset/:id/:token' element={<PasswordReset />} />
+          <Route path='/password-reset/:token' element={<PasswordReset />} />
+          <Route path='/change-password' element={<ChangePassword />} />
+
 
           {/* API Pages */}
           <Route path='/api/:id' element={<SingleApi />} />
