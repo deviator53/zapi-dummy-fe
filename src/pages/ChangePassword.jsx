@@ -26,13 +26,35 @@ const ChangePassword = () => {
   const classes = useStyles()
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
-  const [passwordStrength, setPasswordStrength] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("")
-  const [bgColor, setBgColor] = useState("");
-  const [isDisabled, setIsDisabled] = useState(true);
   const param = useParams();
+
+  const PASSWORD_REGEX = /^(?=.*[a-zA-Z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%_]).{8,20}$/
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (newPassword !== passwordConfirm) {
+      setError("Passwords don't match");
+			setNewPassword("");
+			setPasswordConfirm("");
+			setTimeout(()=>{
+				setError("");
+			}, 5000);
+			
+		} 
+
+    // const userData = { password, newPassword, passwordConfirm }
+    // try{
+    //   const res = await axios.post(url, userData);
+    //   console.log(res);
+    // } catch (err){
+    //   if(error) return
+    //   setPassword(''); setNewPassword(''); setPasswordConfirm('');
+    // }
+  }
   return (
     <>
     <Stack direction='column' height='60vh' alignItems='center' justifyContent='center' textAlign='center' py={1} px={2}>
@@ -41,11 +63,11 @@ const ChangePassword = () => {
     </Typography>
     {error && <div className="error_msg">{error}</div>}
 	{msg && <div className="success_msg">{msg}</div>}
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={handleSubmit}>
       <InputField fullWidth type='password' name="password" value={password} required onChange={(e) => setPassword(e.target.value)} label='Old Password' placeholder='Enter your current password' />
       <InputField fullWidth type='password' name="password" value={newPassword} required onChange={(e) => setNewPassword(e.target.value)} label='New Password' placeholder='Enter your New password' />
       <InputField fullWidth type='password' name="passwordConfirm" value={passwordConfirm} required onChange={(e) => setPasswordConfirm(e.target.value)} label='Confirm Password' placeholder='Confirm your new password' />
-      <Button type='submit' variant='contained'>
+      <Button disabled={!password || !newPassword || !passwordConfirm || !PASSWORD_REGEX.test(!newPassword)} type='submit' variant='contained'>
         Submit
       </Button>
     </form>

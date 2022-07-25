@@ -38,7 +38,11 @@ const ForgotPassword = () => {
       const url = `${identity_url}/auth/forgot/post`;
       const res = await axios.post(url, userData);
       console.log(res);
-      setMsg(res.data.message);
+      // setMsg(res.data.message);
+      setMsg('Email sent successfully');
+      setTimeout(() => {
+        setMsg("");
+      },5000)
     } catch (error){
       console.log(error);
         setError(error.response.data.message);

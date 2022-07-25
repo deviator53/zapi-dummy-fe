@@ -5,10 +5,7 @@ import { ThemeProvider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Cookies from 'universal-cookie'
 
-import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint } from './pages'
-import EmailVerify from './pages/EmailVerify';
-import PasswordReset from './pages/PasswordReset'
-import ChangePassword from './pages/ChangePassword'
+import { ForgotPassword, EmailVerify, PasswordReset, ChangePassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint } from './pages'
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'

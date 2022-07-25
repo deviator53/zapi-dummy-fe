@@ -92,12 +92,12 @@ const PasswordReset = () => {
     const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password !== passwordConfirm) {
+			setError("Passwords don't match");
 			setPassword("");
 			setPasswordConfirm("");
 			setTimeout(()=>{
 				setError("");
 			}, 5000);
-			return setError("Passwords don't match");
 		} 
 			// Post to server
 			
