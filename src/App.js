@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { Routes, Route } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { ThemeProvider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Cookies from 'universal-cookie'
@@ -27,7 +27,6 @@ const App = () => {
   const [query, setQuery] = useState('')
   const classes = useStyles()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const cookies = new Cookies()
 
   const accessToken = cookies.get('accessToken')
@@ -37,11 +36,11 @@ const App = () => {
       const accessToken = cookies.get('accessToken')
       const refreshToken = cookies.get('refreshToken')
       const profileId = cookies.get('profileId')
+      const userId = cookies.get('userId')
       const fullName = cookies.get('fullName')
       const email = cookies.get('email')
-      const data = { accessToken, refreshToken, profileId, fullName, email}
+      const data = { accessToken, refreshToken, profileId, userId, fullName, email}
       dispatch(login(data))
-      navigate(`/user/${profileId}`)
     }
   }
 
