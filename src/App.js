@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Cookies from 'universal-cookie'
 
-import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint } from './pages'
+import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint, EmailAutoVerify, ErrorPage } from './pages'
 import EmailVerify from './pages/EmailVerify';
 import PasswordReset from './pages/PasswordReset'
 import { Navbar } from './components'
@@ -67,6 +67,7 @@ const App = () => {
           <Route path='/signup' element={<Signup />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/email-verify' element={<EmailVerify />} />
+          <Route path='/email-verification/:token' element={<EmailAutoVerify />} />
           <Route path='/password-reset/:id/:token' element={<PasswordReset />} />
 
           {/* API Pages */}
@@ -76,21 +77,21 @@ const App = () => {
 
           <Route element={<RequireAuth />}>
 
-          <Route path='/api/api/new/:id' element={<MyApiPage />} />
-          <Route path='/api/endpoint/new/:id' element={<ApiEndpoint />} />
-          <Route path='/api/endpoints/:id' element={<Endpoint />} />
+            <Route path='/api/api/new/:id' element={<MyApiPage />} />
+            <Route path='/api/endpoint/new/:id' element={<ApiEndpoint />} />
+            <Route path='/api/endpoints/:id' element={<Endpoint />} />
 
-          {/* User Pages */}
-          <Route path='/user/:id' element={<UserProfile />} />
-          <Route path='/user/settings' element={<Settings />} />
+            {/* User Pages */}
+            <Route path='/user/:id' element={<UserProfile />} />
+            <Route path='/user/settings' element={<Settings />} />
 
-          {/* Organization Pages */}
-          <Route path='/orgs/:Id'  element={<OrganizationPage />} />
-          <Route path='/orgs/create-new' element={<CreateOrg />} />
-          <Route path='/orgs-list/:id' element={<OrgList />} />
+            {/* Organization Pages */}
+            <Route path='/orgs/:Id'  element={<OrganizationPage />} />
+            <Route path='/orgs/create-new' element={<CreateOrg />} />
+            <Route path='/orgs-list/:id' element={<OrgList />} />
           
           </Route>
-
+          <Route path='/error' element={<ErrorPage />} />
         </Routes>
       </div>
     </ThemeProvider>
