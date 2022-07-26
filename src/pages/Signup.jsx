@@ -71,12 +71,11 @@ const SignupPage = () => {
         const payload = { fullName, email, password }
 
         try{
-            const data = await signupUser(payload)
-            console.log(data)
+           await signupUser(payload)
         }catch(err) {}
         
         if(error) return
-        navigate('/login')
+        navigate('/email-verify')
         setFullName(''); setEmail(''); setPassword('');
     }
 
