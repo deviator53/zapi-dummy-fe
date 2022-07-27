@@ -5,9 +5,8 @@ import { ThemeProvider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 
-import { ForgotPassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint, EmailAutoVerify, ErrorPage } from './pages'
-import EmailVerify from './pages/EmailVerify';
-import PasswordReset from './pages/PasswordReset'
+import { ForgotPassword, EmailVerify, PasswordReset, ChangePassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint, EmailAutoVerify, ErrorPage } from './pages'
+
 import { Navbar } from './components'
 import { theme } from './theme'
 import { getApis } from './redux/features/api/apiSlice'
@@ -75,7 +74,9 @@ const App = () => {
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/email-verify' element={<EmailVerify />} />
           <Route path='/email-verification/:token' element={<EmailAutoVerify />} />
-          <Route path='/password-reset/:id/:token' element={<PasswordReset />} />
+          <Route path='/password-reset/:id' element={<PasswordReset />} />
+		  <Route path='/change-password' element={<ChangePassword />} />
+
 
 			{/* API Pages */}
 			<Route path="/api/:id" element={<SingleApi />} />
