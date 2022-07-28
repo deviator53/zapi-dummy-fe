@@ -97,9 +97,6 @@ const MyApis = () => {
 								<Link to={`/api/endpoints/${list.id}`}>
 									<Typography>Analytics</Typography>
 								</Link>
-								<Link to={`/api/security/${list.id}`}>
-									<Typography>Security</Typography>
-								</Link>
 							</Stack>
 						</AccordionDetails>
 					</Accordion>
