@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+
 import axios from "axios";
 import { Button, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -21,15 +23,22 @@ const useStyles = makeStyles({
     }
   }
 })
+const identity_url = process.env.REACT_APP_IDENTITY_URL
 
 const ChangePassword = () => {
   const classes = useStyles()
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
-  const [password, setPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("")
-  const param = useParams();
+  
+  // const dispatch = useDispatch()
+  const { user} = useSelector(store => store.user)
+
+
+  const url = `${identity_url}/auth/changepassword/${user.userId}`;
+  
 
   const PASSWORD_REGEX = /^(?=.*[a-zA-Z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%_]).{8,20}$/
 
@@ -37,23 +46,44 @@ const ChangePassword = () => {
     e.preventDefault();
 
     if (newPassword !== passwordConfirm) {
-      setError("Passwords don't match");
 			setNewPassword("");
 			setPasswordConfirm("");
 			setTimeout(()=>{
 				setError("");
 			}, 5000);
-			
+			return setError("Passwords don't match");
+
 		} 
 
-    // const userData = { password, newPassword, passwordConfirm }
-    // try{
-    //   const res = await axios.post(url, userData);
-    //   console.log(res);
-    // } catch (err){
-    //   if(error) return
-    //   setPassword(''); setNewPassword(''); setPasswordConfirm('');
-    // }
+    // if (!PASSWORD_REGEX.test(newPassword)) {
+    //   setError("Password must be between 8 - 20 characters and must include a capital letter, a small letter, a number and a special character");
+    //   setTimeout(()=> {
+    //     setError("");
+    //   },8000);
+    // } 
+
+
+
+    const userData = { oldPassword, newPassword }
+    try{
+      const res = await axios.patch(url, userData);
+      console.log(res);
+    setMsg("Password Changed Successfully");
+				window.location = "/login";
+    } catch (error){
+      // setOldPassword('');
+      // setNewPassword('');
+      // setPasswordConfirm('');
+      setError(error.response.res.message);
+				setTimeout(()=> {
+					setError("");
+				},8000);
+      
+    }
+
+
+    // Suduko@12345
+    // disabled={!password || !newPassword || !passwordConfirm || !PASSWORD_REGEX.test(newPassword)} 
   }
   return (
     <>
@@ -64,10 +94,10 @@ const ChangePassword = () => {
     {error && <div className="error_msg">{error}</div>}
 	{msg && <div className="success_msg">{msg}</div>}
     <form className={classes.form} onSubmit={handleSubmit}>
-      <InputField fullWidth type='password' name="password" value={password} required onChange={(e) => setPassword(e.target.value)} label='Old Password' placeholder='Enter your current password' />
-      <InputField fullWidth type='password' name="password" value={newPassword} required onChange={(e) => setNewPassword(e.target.value)} label='New Password' placeholder='Enter your New password' />
+      <InputField fullWidth type='password' name="oldPassword" value={oldPassword} required onChange={(e) => setOldPassword(e.target.value)} label='Old Password' placeholder='Enter your current password' />
+      <InputField fullWidth type='password' name="newpassword" value={newPassword} required onChange={(e) => setNewPassword(e.target.value)} label='New Password' placeholder='Enter your New password' />
       <InputField fullWidth type='password' name="passwordConfirm" value={passwordConfirm} required onChange={(e) => setPasswordConfirm(e.target.value)} label='Confirm Password' placeholder='Confirm your new password' />
-      <Button disabled={!password || !newPassword || !passwordConfirm || !PASSWORD_REGEX.test(!newPassword)} type='submit' variant='contained'>
+      <Button disabled={!oldPassword || !newPassword || !passwordConfirm || !PASSWORD_REGEX.test(newPassword)} type='submit' variant='contained'>
         Submit
       </Button>
     </form>

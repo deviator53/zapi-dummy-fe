@@ -79,25 +79,21 @@ const App = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return (
-		<ThemeProvider theme={theme}>
-			<Navbar query={query} setQuery={setQuery} />
-			<div className={classes.router_container}>
-				<Routes>
-					{/* General Pages */}
-					<Route path="/" element={<Home />} />
-					<Route path="/login" element={<LoginPage />} />
-					<Route path="/signup" element={<Signup />} />
-					<Route path="/forgot-password" element={<ForgotPassword />} />
-					<Route path="/email-verify" element={<EmailVerify />} />
-					<Route
-						path="/email-verification/:token"
-						element={<EmailAutoVerify />}
-					/>
-					<Route
-						path="/password-reset/:id/:token"
-						element={<PasswordReset />}
-					/>
+  return (
+    <ThemeProvider theme={theme}>
+      <Navbar query={query} setQuery={setQuery} />
+      <div className={classes.router_container}>
+        <Routes>
+          {/* General Pages */}
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/email-verify' element={<EmailVerify />} />
+          <Route path='/email-verification/:token' element={<EmailAutoVerify />} />
+          <Route path='/password-reset/:id' element={<PasswordReset />} />
+		  <Route path='/change-password' element={<ChangePassword />} />
+
 
 					{/* API Pages */}
 					<Route path="/api/:id" element={<SingleApi />} />
