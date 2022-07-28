@@ -5,17 +5,34 @@ import { ThemeProvider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Cookies from "universal-cookie";
 
-import { ForgotPassword, EmailVerify, PasswordReset, ChangePassword, Home, LoginPage, SingleApi, UserProfile, Categories, Category, CreateOrg, Signup, Settings, MyApiPage, Endpoint, EmailAutoVerify, ErrorPage } from './pages'
-
-import { Navbar } from './components'
-import { theme } from './theme'
-import { getApis } from './redux/features/api/apiSlice'
-import { getSingleApis } from './redux/features/singleApi/singleApiSlice'
-import { login } from './redux/features/user/userSlice'
-import ApiEndpoint from './pages/ApiEndpoint'
-import OrganizationPage from './pages/OrganizationPage'
-import OrgList from './pages/OrgList'
-import { RequireAuth } from './components/RequireAuth'
+import {
+	ForgotPassword,
+	Home,
+	LoginPage,
+	SingleApi,
+	UserProfile,
+	Categories,
+	Category,
+	CreateOrg,
+	Signup,
+	Settings,
+	MyApiPage,
+	Endpoint,
+	EmailAutoVerify,
+	ErrorPage,
+} from "./pages";
+import EmailVerify from "./pages/EmailVerify";
+import PasswordReset from "./pages/PasswordReset";
+import { Navbar } from "./components";
+import { theme } from "./theme";
+import { getApis } from "./redux/features/api/apiSlice";
+import { getSingleApis } from "./redux/features/singleApi/singleApiSlice";
+import { login } from "./redux/features/user/userSlice";
+import ApiEndpoint from "./pages/ApiEndpoint";
+import OrganizationPage from "./pages/OrganizationPage";
+import OrgList from "./pages/OrgList";
+import { RequireAuth } from "./components/RequireAuth";
+import SecurityMyApi from "./pages/SecurityMyApi";
 
 const useStyles = makeStyles({
 	router_container: {
@@ -78,35 +95,35 @@ const App = () => {
 		  <Route path='/change-password' element={<ChangePassword />} />
 
 
-			{/* API Pages */}
-			<Route path="/api/:id" element={<SingleApi />} />
-			<Route path="/api/categories" element={<Categories />} />
-			<Route path="/api/categories/:id" element={<Category />} />
+					{/* API Pages */}
+					<Route path="/api/:id" element={<SingleApi />} />
+					<Route path="/api/categories" element={<Categories />} />
+					<Route path="/api/categories/:id" element={<Category />} />
 
-			<Route element={<RequireAuth />}>
-				<Route path="/api/api/new/:id" element={<MyApiPage />} />
-				<Route path="/api/endpoint/new/:id" element={<ApiEndpoint />} />
-				<Route path="/api/endpoints/:id" element={<Endpoint />} />
+					<Route element={<RequireAuth />}>
+						<Route path="/api/api/new/:id" element={<MyApiPage />} />
+						<Route path="/api/endpoint/new/:id" element={<ApiEndpoint />} />
+						<Route path="/api/endpoints/:id" element={<Endpoint />} />
 
-				<Route path='/api/api/new/:id' element={<MyApiPage />} />
-				<Route path='/api/endpoint/new/:id' element={<ApiEndpoint />} />
-				<Route path='/api/endpoints/:id' element={<Endpoint />} />
+						<Route path="/api/api/new/:id" element={<MyApiPage />} />
+						<Route path="/api/endpoint/new/:id" element={<ApiEndpoint />} />
+						<Route path="/api/endpoints/:id" element={<Endpoint />} />
+						<Route path="/api/security/:id" element={<SecurityMyApi />} />
 
-				{/* User Pages */}
-				<Route path='/user/:id' element={<UserProfile />} />
-				<Route path='/user/settings' element={<Settings />} />
+						{/* User Pages */}
+						<Route path="/user/:id" element={<UserProfile />} />
+						<Route path="/user/settings" element={<Settings />} />
 
-				{/* Organization Pages */}
-				<Route path='/orgs/:Id'  element={<OrganizationPage />} />
-				<Route path='/orgs/create-new' element={<CreateOrg />} />
-				<Route path='/orgs-list/:id' element={<OrgList />} />
-			
-			</Route>
-			<Route path='/error' element={<ErrorPage />} />
-			</Routes>
-      </div>
-    </ThemeProvider>
-  )
-}
+						{/* Organization Pages */}
+						<Route path="/orgs/:Id" element={<OrganizationPage />} />
+						<Route path="/orgs/create-new" element={<CreateOrg />} />
+						<Route path="/orgs-list/:id" element={<OrgList />} />
+					</Route>
+					<Route path="/error" element={<ErrorPage />} />
+				</Routes>
+			</div>
+		</ThemeProvider>
+	);
+};
 
-export default App
+export default App;
