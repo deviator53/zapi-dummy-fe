@@ -58,7 +58,7 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 7;
+  z-index: 2500;
 }
 
 .spinner {
@@ -140,6 +140,10 @@ a {
 .react-multi-carousel-list {
   height: 250px;
   padding-left: 1rem;
+}
+
+.react-multiple-carousel__arrow {
+  z-index: 2;
 }
 
 /******* For Reset Password ************/
