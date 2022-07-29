@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ApiPageSidebar from "../components/ApiPageSidebar";
 import { makeStyles } from "@mui/styles";
 import { Divider, Typography } from "@mui/material";
@@ -6,6 +6,11 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ToggleOffIcon from "@mui/icons-material/ToggleOff";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+import { useFetch } from "../services/useFetch";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+const base_url = process.env.REACT_APP_BASE_URL;
 
 const useStyles = makeStyles({
 	main: {
@@ -39,11 +44,24 @@ const useStyles = makeStyles({
 });
 function SecurityMyApi() {
 	const classes = useStyles();
-
+	const { id } = useParams();
 	const [proxySecret, setProxySecret] = useState(false);
 	const [threatProtection, setThreatProtection] = useState(false);
 	const [requestSchemaValidation, setRequestSchemaValidation] = useState(false);
-
+	const [key, setKey] = useState([]);
+	async function getApiSecurity() {
+		try {
+			const res = await fetch(`${base_url}/api/${id}`);
+			const data = await res.json();
+			setKey(data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	useEffect(() => {
+		getApiSecurity();
+	}, []);
+	console.log(key);
 	function toogleProxySecret() {
 		setProxySecret(prevState => {
 			return !prevState;
@@ -79,9 +97,7 @@ function SecurityMyApi() {
 					<div className={classes.poxyKeyFlex}>
 						<Typography>
 							X-RapidAPI-Proxy-Secret:{" "}
-							{proxySecret
-								? "22252c10-08f3-11ed-ae6a-9d540b87edef"
-								: "•••••••••••••••••••••••••"}
+							{proxySecret ? key.data.secretKey : "•••••••••••••••••••••••••"}
 						</Typography>
 
 						{proxySecret ? (
