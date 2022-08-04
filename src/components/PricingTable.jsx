@@ -22,7 +22,7 @@ const rows = [
   createData('Rate Limit', '', '', '', '12000 requests per hour'),
 ];
 
-const BasicTable = ({setOpenPopup, isSubscribed}) => {
+const BasicTable = ({setOpenPopup}) => {
   //const [subscribe, setSubscribe] = useState(false);
   const [buttonSwitch, setButtonSwitch] = useState(true);
   const [buttonSwitchPro, setButtonSwitchPro] = useState(true);
@@ -159,9 +159,10 @@ const BasicTable = ({setOpenPopup, isSubscribed}) => {
             <TableCell>Objects</TableCell>
             <TableCell sx={{ fontSize: 25, lineHeight: 1.5 }} align="center">
               Basic <br /> $0.00 / mo <br />
-              {!isSubscribed ? (<Button variant='contained' onClick={toggleButton}>
+              {buttonSwitch && (<Button variant='contained' onClick={toggleButton}>
                 Subscribe
-              </Button>) : (<Button variant='contained' onClick={unsubButton}>
+              </Button>)} 
+               {!buttonSwitch && (<Button variant='contained' onClick={unsubButton}>
                 Unsubscribe
               </Button>)}
             </TableCell>
