@@ -1,6 +1,6 @@
+import React from "react";
 import { List, ListItem, ListItemText, Stack, Typography } from "@mui/material";
 import { CheckCircleOutlineSharp } from "@mui/icons-material";
-import React from "react";
 import { makeStyles } from "@mui/styles";
 import { useFetch } from "../services/useFetch";
 import { useParams } from "react-router";
@@ -51,6 +51,7 @@ const MyApis = () => {
 			lists.push(listData(api.name, api.id));
 		}
 	});
+	console.log(lists);
 	const handleChange = panel => (event, isExpanded) => {
 		setExpanded(isExpanded ? panel : false);
 	};
@@ -78,17 +79,17 @@ const MyApis = () => {
 						expanded={expanded === `${list.id}`}
 						onChange={handleChange(`${list.id}`)}
 					>
-						<AccordionSummary
-							expandIcon={<ExpandMoreIcon />}
-							aria-controls="panel1bh-content"
-							id="panel1bh-header"
-						>
-							<Link to={`/api/endpoints/${list.id}`}>
+						<Link to={`/api/endpoints/${list.id}`}>
+							<AccordionSummary
+								expandIcon={<ExpandMoreIcon />}
+								aria-controls="panel1bh-content"
+								id="panel1bh-header"
+							>
 								<Typography sx={{ width: "33%", flexShrink: 0 }}>
 									{list.name}
 								</Typography>
-							</Link>
-						</AccordionSummary>
+							</AccordionSummary>
+						</Link>
 						<AccordionDetails className={classes.accBody}>
 							<Stack direction="column" paddingRight={3}>
 								<Link to={`/api/endpoints/${list.id}`}>
@@ -96,6 +97,9 @@ const MyApis = () => {
 								</Link>
 								<Link to={`/api/endpoints/${list.id}`}>
 									<Typography>Analytics</Typography>
+								</Link>
+								<Link to={`/api/security/${list.id}`}>
+									<Typography>Security</Typography>
 								</Link>
 							</Stack>
 						</AccordionDetails>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Stack, Typography } from '@mui/material'
+import { Alert, Card, Stack, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import InputField from './InputField'
+import { useHttpRequest } from '../hooks/fetch-hook'
 
 const useStyles = makeStyles({
   overlay: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
     position: 'fixed',
     top: 0,
     left: 0,
-    zIndex: 2
+    zIndex: 2000,
   },
   card: {
     width: '60%',
@@ -47,26 +48,38 @@ const useStyles = makeStyles({
   }
 })
 
+const url = process.env.REACT_APP_BASE_URL
+
 const Search = ({ closeModal }) => {
-  const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
+  const { error, sendRequest, clearError } = useHttpRequest()
   const classes = useStyles()
 
   const searchAPI = async(e) => {
     e.preventDefault()
+    const query = e.target.value
 
+    if(!query) {
+      return setResults([])
+    }
+
+    const headers = {'Content-Type': 'application/json'}
     try {
+      const data = await sendRequest(`${url}/api?search=${query}`, 'GET', null, headers)
+      setResults(data.data)
     } catch (error) {}
   }
 
   return (
-    <div className={classes.overlay} onClick={closeModal}>
+    <>
+    {error && (<Alert style={{ position: 'absolute', top: '10%', zIndex:3 }} severity='error' onClose={clearError}>{error}</Alert>)}
+    <div className={classes.overlay} onClick={closeModal} onScroll={(e) => e.stopPropagation()}>
       <Card className={classes.card} onClick={(e) => e.stopPropagation()}>
-        <form className={classes.form} onSubmit={searchAPI}>
-          <InputField fullWidth type='text' value={query} onChange={(e) => setQuery(e.target.value)} placeholder='Search...' />
-        </form>
+        <div className={classes.form}>
+          <InputField fullWidth type='text' onChange={searchAPI} placeholder='Search...' />
+        </div>
         <div className={classes.outputDiv}>
-          {results && results.map(result => (
+          {results.length ? results.map(result => (
             <Stack className={classes.result} direction='row' alignItems='center' justifyContent='space-between' p={2} my={2} key={result.id}>
               <Stack direction='column' spacing={1}>
                 <Typography variant='subtitle1'>{result.name}</Typography>
@@ -76,10 +89,15 @@ const Search = ({ closeModal }) => {
                 <Typography variant='caption'>View</Typography>
               </Link>
             </Stack>
-          ))}
+          )) : 
+          <Stack direction='column' spacing={1}>
+            <Typography variant='subtitle1'>No results found!</Typography>
+            <Typography variant='caption'>Try a different search term.</Typography>
+          </Stack>}
         </div>
       </Card>
     </div>
+    </>
   )
 }
 

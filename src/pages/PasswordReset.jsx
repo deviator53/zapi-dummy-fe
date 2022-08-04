@@ -38,7 +38,7 @@ const PasswordReset = () => {
 	  const [isDisabled, setIsDisabled] = useState(true);
 	  const param = useParams();
 
-    const url = `${identity_url}/auth/reset/${param.token}`;
+    const url = `${identity_url}/auth/reset/${param.id}`;
 
 	// useEffect(()=>{
 	// 	console.log(param);
@@ -92,24 +92,25 @@ const PasswordReset = () => {
     const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password !== passwordConfirm) {
-			setError("Passwords don't match");
 			setPassword("");
 			setPasswordConfirm("");
 			setTimeout(()=>{
 				setError("");
 			}, 5000);
+			return 	setError("Passwords don't match");
+
 		} 
 			// Post to server
 			
 			try {
 				const res = await axios.post(url, { password, passwordConfirm });
-				// console.log(res);
-				
-				setMsg(res.data.message);
-				window.location = "/email-verify";
+				console.log(res);
+				setMsg("Password Reset Successfully");
+				window.location = "/login";
+
 			} catch (error) {
 				
-				setError(error.response.data.message);
+				setError(error.response.res.message);
 				setTimeout(()=> {
 					setError("");
 				},5000);
