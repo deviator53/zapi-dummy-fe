@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Avatar, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material'
 import { KeyboardArrowDown, LooksOne, LooksTwo, Looks3 } from '@mui/icons-material';
 import { blue } from '@mui/material/colors';
 import { makeStyles } from '@mui/styles'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import PricingTable from './PricingTable'
 import developers from '../assets/people.webp'
@@ -18,11 +18,17 @@ const useStyles = makeStyles({
         margin: '1.5rem 0 0 0 ',
     },
     user: {
-        width: '90%',
+        width: '30%',
         border: '1px solid var(--mid)',
         borderRadius: '5px',
         padding: '0.5rem',
         margin: '1rem 0 2rem',
+        '@media screen and (max-width: 800px)': {
+            width: '60%'
+          },
+        '@media screen and (min-width: 1270px)': {
+            width: '30%'
+          }
     },
     img: {
         '@media screen and (max-width: 800px)': {

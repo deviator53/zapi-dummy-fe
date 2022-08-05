@@ -31,6 +31,7 @@ const SingleApi = () => {
   const [openCarousel, setOpenCarousel] = useState([])
   const { id } = useParams()
   
+
   try{
     async function getCarousel() {
         const res = await fetch(`${base_url}/api/${id}`)
@@ -50,21 +51,20 @@ const SingleApi = () => {
     <>
           {openPopup && <PopUp closePopUp={() => setOpenPopup(false)} />}
           <Stack direction='column'>
-            {/* {array.map(item => ( */}
               <Stack>
-                <Stack direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }} my={2} spacing={2} justifyContent='space-between' alignItems='center' >
+                <Stack direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }} my={2} spacing={2} justifyContent='space-between' alignItems='center' marginLeft={2} marginRight={2}>
                   <ApiDetails image={logo} name={openCarousel.name} pricing='FREEMUIM' isVerified={false} author='zummit' lastUpdated='2days' category={openCarousel.name} featured='Popular APIs' />
                   <ApiMetrics popularity={9.9} latency={86} level={100} />
                 </Stack>
-                <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)}>
+                <Tabs value={tab} onChange={(e, newValue) => setTab(newValue)} >
                   <Tab label='Pricing' />
                   <Tab label='Endpoints' />
                   <Tab label='Tutorials' />
                 </Tabs>
-                <Stack direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }} marginTop={2} spacing={2} alignItems='center'>
+                <Stack direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }} marginTop={2} spacing={2} alignItems='center' marginLeft={2} marginRight={2}>
                   <Typography variant='h5'>{openCarousel.name} Api Documentation</Typography>
                 </Stack>
-                <Stack direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }} spacing={2} my={1} alignItems='center'>
+                <Stack direction={{ xs: 'column', sm: 'column', md: 'row', lg: 'row' }} spacing={2} my={1} alignItems='center' marginLeft={2} marginRight={2}>
                   <Typography variant='subtitle1'>{openCarousel.description}</Typography>
                 </Stack>
                 <Stack className={classes.tabs_container}>
@@ -89,7 +89,6 @@ const SingleApi = () => {
                   <TabPanel value={tab} index={2}>Tutorial</TabPanel>
                 </Stack>
               </Stack>
-            {/* ))} */}
           </Stack>
         </>
   )

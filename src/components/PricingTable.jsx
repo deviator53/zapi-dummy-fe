@@ -23,6 +23,7 @@ const rows = [
 ];
 
 const BasicTable = ({setOpenPopup}) => {
+  //const [subscribe, setSubscribe] = useState(false);
   const [buttonSwitch, setButtonSwitch] = useState(true);
   const [buttonSwitchPro, setButtonSwitchPro] = useState(true);
   const [buttonSwitchUltra, setButtonSwitchUltra] = useState(true);
@@ -149,6 +150,7 @@ const BasicTable = ({setOpenPopup}) => {
   }
 
 
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -159,8 +161,8 @@ const BasicTable = ({setOpenPopup}) => {
               Basic <br /> $0.00 / mo <br />
               {buttonSwitch && (<Button variant='contained' onClick={toggleButton}>
                 Subscribe
-              </Button>)}
-              {!buttonSwitch && (<Button variant='contained' onClick={unsubButton}>
+              </Button>)} 
+               {!buttonSwitch && (<Button variant='contained' onClick={unsubButton}>
                 Unsubscribe
               </Button>)}
             </TableCell>
