@@ -110,7 +110,7 @@ const PasswordReset = () => {
 
 			} catch (error) {
 				
-				setError(error.response.res.message);
+				setError(error.response.data.message);
 				setTimeout(()=> {
 					setError("");
 				},5000);

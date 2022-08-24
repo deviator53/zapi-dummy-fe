@@ -55,6 +55,17 @@ const ChangePassword = () => {
 
 		} 
 
+    if (oldPassword === newPassword) {
+      setOldPassword("");
+      setNewPassword("");
+      setPasswordConfirm("");
+
+      setTimeout(()=> {
+        setError("");
+      },5000)
+      return setError("New Password Should be different");
+    }
+
     // if (!PASSWORD_REGEX.test(newPassword)) {
     //   setError("Password must be between 8 - 20 characters and must include a capital letter, a small letter, a number and a special character");
     //   setTimeout(()=> {
@@ -71,10 +82,10 @@ const ChangePassword = () => {
     setMsg("Password Changed Successfully");
 				window.location = "/login";
     } catch (error){
-      // setOldPassword('');
-      // setNewPassword('');
-      // setPasswordConfirm('');
-      setError(error.response.res.message);
+      setOldPassword('');
+      setNewPassword('');
+      setPasswordConfirm('');
+      setError(error.response.data.message);
 				setTimeout(()=> {
 					setError("");
 				},8000);
